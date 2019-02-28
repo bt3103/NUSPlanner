@@ -29,7 +29,16 @@
               placeholder="Finance"
               attach="dropdown"
             ></v-select>
+            <v-select
+              v-model="e4"
+              :menu-props="{ auto: true }"
+              :items="specs"
+              label="Specialisation to take"
+              placeholder="Financial Analytics"
+              attach="dropdown"
+            ></v-select>
             <v-btn block color="secondary" dark @click="isSubmitted()">Submit</v-btn>
+            <v-btn block color="secondary" dark @click="isReset()">Reset</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -57,6 +66,7 @@ export default {
       e1: [],
       e2: [],
       e3: [],
+      e4: [],
       internship: [
         "Year 2 Sem 2",
         "Year 3 Sem 1",
@@ -68,7 +78,8 @@ export default {
         "Year 2 Sem 2",
         "Year 3 Sem 1",
         "Year 3 Sem 2",
-        "Year 4 Sem 1"
+        "Year 4 Sem 1",
+        "Not Going"
       ],
       minors: [
         "Business",
@@ -77,7 +88,12 @@ export default {
         "Math",
         "Finance",
         "Statistics",
-        "No plan"
+        "No Plan"
+      ],
+      specs: [
+        "Financial Analytics",
+        "Marketing Analytics",
+        "No Plan"
       ]
     };
   },
@@ -85,6 +101,10 @@ export default {
     isSubmitted: function()
     {
       this.submitted = true;
+    },
+    isReset: function()
+    {
+      this.submitted = false;
     }
   }
 };
