@@ -42,6 +42,10 @@ export default {
     return {
       drawer: true,
       items: [
+        { title: "Profile", 
+         icon: "account_circle",
+         name: "profile_page" 
+        },
         {
           title: "Timetable",
           icon: "calendar_today",
@@ -52,7 +56,11 @@ export default {
           icon: "assignment",
           name: "four_year_plan"
         },
-        { title: "Profile", icon: "account_circle", name: "profile_page" }
+        {
+          title: "Recommendation",
+          icon: "explore",
+          name: "recommendation"
+        }
       ],
       right: null
     };
