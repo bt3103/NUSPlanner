@@ -1,6 +1,6 @@
 <template>
   <v-card height="480px" width="200px" flat>
-    <v-navigation-drawer v-model="drawer" floating light hide-overlay stateless>
+    <v-navigation-drawer v-model="drawer" light permanent hide-overlay stateless>
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
