@@ -12,24 +12,6 @@
 
       <v-toolbar-title class="mr-4">Splanner</v-toolbar-title>
 
-      <v-toolbar-items>
-      <v-btn 
-        flat 
-        dark
-        :to="{
-          name: 'login'
-        }">
-        Login
-      </v-btn>
-      <v-btn 
-        flat 
-        dark
-        :to="{
-          name: 'four_year_plan'
-        }">
-        Study Plan
-      </v-btn>
-    </v-toolbar-items>
 
       <v-spacer></v-spacer>
 
