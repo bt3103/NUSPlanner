@@ -27,13 +27,11 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import pelist from "@/components/PeList.vue";
 
 export default {
   name: "recommendation",
   components: {
     sidebar,
-    pelist
   },
   data() {
     return {
