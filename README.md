@@ -1,4 +1,4 @@
-# Splanner
+# NUSplanner
 
 > A one-stop study planning platform designed for NUS BZA students
 
