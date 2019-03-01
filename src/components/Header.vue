@@ -10,7 +10,7 @@
     >
       <v-toolbar-side-icon></v-toolbar-side-icon>
 
-      <v-toolbar-title class="mr-4">Splanner</v-toolbar-title>
+      <v-toolbar-title class="mr-4">NUSPlanner</v-toolbar-title>
 
 
       <v-spacer></v-spacer>
