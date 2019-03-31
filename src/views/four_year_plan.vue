@@ -37,6 +37,14 @@
               placeholder="Financial Analytics"
               attach="dropdown"
             ></v-select>
+            <v-select
+              v-model="e5"
+              :menu-props="{ auto: true }"
+              :items="skills"
+              label="Technical Skills Focus"
+              placeholder="Python Programming"
+              attach="dropdown"
+            ></v-select>
             <v-btn block color="secondary" dark @click="isSubmitted()">Submit</v-btn>
             <v-btn block color="secondary" dark @click="isReset()">Reset</v-btn>
           </v-flex>
@@ -67,6 +75,7 @@ export default {
       e2: [],
       e3: [],
       e4: [],
+      e5: [],
       internship: [
         "Year 2 Sem 2",
         "Year 3 Sem 1",
@@ -94,6 +103,11 @@ export default {
         "Financial Analytics",
         "Marketing Analytics",
         "No Plan"
+      ],
+      skills: [
+        "Python Programming",
+        "Statistical Modelling",
+        "Business Acumen"
       ]
     };
   },
