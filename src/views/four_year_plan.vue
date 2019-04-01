@@ -118,7 +118,7 @@ export default {
   methods: {
     isSubmitted: function()
     {
-      this.submitted =this.submitted-1;
+      this.submitted =1;
     },
     isReset: function()
     {
