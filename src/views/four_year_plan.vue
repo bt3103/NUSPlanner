@@ -46,16 +46,20 @@
               attach="dropdown"
             ></v-select>
             <v-btn block color="secondary" dark @click="isSubmitted()">Submit</v-btn>
+            <v-btn block color="secondary" dark @click="isCreate()">Create</v-btn>
             <v-btn block color="secondary" dark @click="isReset()">Reset</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
     </div>
-    <div class="studyplan_blank" v-show="!submitted">
-    <img src="https://i.imgur.com/xGMybMH.png" width="700px" height="500px" />
+    <div class="studyplan_blank" v-show="submitted==1">
+    <img src="https://imgur.com/gpP6YQX.png" width="700px" height="500px" />
     </div>
-    <div class="studyplan" v-show="submitted">
-    <img src="https://i.imgur.com/W3ruu0g.png" width="700px" height="500px" />
+    <div class="studyplan" v-show="submitted==2">
+    <img src="https://imgur.com/zl27RE8" width="700px" height="500px" />
+    </div>
+    <div class="studyplan" v-show="submitted==3">
+    <img src="https://imgur.com/sCCHsyw.png" width="700px" height="500px" />
     </div>
   </div>
 </template>
@@ -70,7 +74,7 @@ export default {
   },
   data() {
     return {
-      submitted: false,
+      submitted: 3,
       e1: [],
       e2: [],
       e3: [],
@@ -114,11 +118,15 @@ export default {
   methods: {
     isSubmitted: function()
     {
-      this.submitted = true;
+      this.submitted =this.submitted-1;
     },
     isReset: function()
     {
-      this.submitted = false;
+      this.submitted = 3;
+    },
+    isCreate: function()
+    {
+      this.submitted = 3;
     }
   }
 };
