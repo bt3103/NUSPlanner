@@ -33,7 +33,7 @@ export default {
       authenticated: false,
       logout:false,
       mockAccount: {
-        username: "admin",
+        username: "A0123456B",
         password: "password"
       }
     };

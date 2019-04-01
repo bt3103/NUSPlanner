@@ -31,7 +31,7 @@ import sidebar from "@/components/Sidebar.vue";
 export default {
   name: "recommendation",
   components: {
-    sidebar
+    sidebar,
   },
   data() {
     return {
