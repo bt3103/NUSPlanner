@@ -1,6 +1,6 @@
 <template>
   <v-card height="480px" width="200px" flat>
-    <v-navigation-drawer v-model="drawer" floating light hide-overlay stateless>
+    <v-navigation-drawer v-model="drawer" floating light permanent hide-overlay stateless>
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
@@ -42,6 +42,10 @@ export default {
     return {
       drawer: true,
       items: [
+        { title: "Profile", 
+         icon: "account_circle",
+         name: "profile_page" 
+        },
         {
           title: "Timetable",
           icon: "calendar_today",
@@ -52,7 +56,11 @@ export default {
           icon: "assignment",
           name: "four_year_plan"
         },
-        { title: "Profile", icon: "account_circle", name: "profile_page" }
+        {
+          title: "Recommendation",
+          icon: "explore",
+          name: "recommendation"
+        }
       ],
       right: null
     };

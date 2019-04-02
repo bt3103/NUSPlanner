@@ -7,11 +7,15 @@
       <router-link
         v-if="authenticated"
         to="/login"
-        v-on:click.native="logout();"
+        v-on:click.native="Logout();"
         replace
         >Logout</router-link
       >
     </div>
+    <div class="quotes" v-show="logout">
+      <img src=./assets/quotes.jpg width=100% height=100% />
+    </div>
+
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -27,8 +31,9 @@ export default {
   data() {
     return {
       authenticated: false,
+      logout:false,
       mockAccount: {
-        username: "admin",
+        username: "A0123456B",
         password: "password"
       }
     };
@@ -42,8 +47,9 @@ export default {
     setAuthenticated(status) {
       this.authenticated = status;
     },
-    logout() {
+    Logout() {
       this.authenticated = false;
+      this.logout = true;
     }
   }
 };
