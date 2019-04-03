@@ -13,17 +13,19 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "chart.js": "2.7.3",
+    "firebase": "5.9.2",
+    "function": "0.6.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1 ",
     "vue": "^2.5.2",
+    "vue-chartjs": "3.4.0",
     "vue-router": "3.0.2",
     "vue-schedule": "2.0.4",
+    "vue-sorted-table": "1.0.1",
+    "vuefire": "1.4.5",
     "vuesax": "3.8.16",
     "vuetify": "^1.5.2",
-    "chart.js": "2.7.3",
-    "function": "0.6.1",
-    "vue-chartjs": "3.4.0",
-    "vue-sorted-table": "1.0.1",
     "webpack-dev-server": ">=3.1.11"
   },
   "devDependencies": {

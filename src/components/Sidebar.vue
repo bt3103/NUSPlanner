@@ -5,7 +5,7 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img src="https://pbs.twimg.com/media/C9XyZz0VYAElz7z.jpg" />
+              <img src="https://pbs.twimg.com/media/C9XyZz0VYAElz7z.jpg">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
@@ -18,11 +18,7 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          :to="{ name: item.name }"
-        >
+        <v-list-tile v-for="item in items" :key="item.title" :to="{ name: item.name }">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -42,9 +38,11 @@ export default {
     return {
       drawer: true,
       items: [
-        { title: "Profile", 
-         icon: "account_circle",
-         name: "profile_page" 
+        { title: "Profile", icon: "account_circle", name: "profile_page" },
+        {
+          title: "What If Analysis",
+          icon: "far fa-question-circle",
+          name: "what_if_analysis"
         },
         {
           title: "Timetable",

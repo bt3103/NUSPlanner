@@ -7,6 +7,8 @@
       absolute
       color="teal lighten-3"
       dark
+      scroll-off-screen
+      scroll-target="#scrolling-techniques"
     >
       <v-toolbar-side-icon></v-toolbar-side-icon>
 
@@ -19,6 +21,12 @@
         <v-icon>search</v-icon>
       </v-btn>
     </v-toolbar>
+    <div
+      id="scrolling-techniques"
+      class="scroll-y"
+      style="max-height: 600px;"
+    >
     <v-container style="height: 100px;"></v-container>
+    </div>
   </div>
 </template>
