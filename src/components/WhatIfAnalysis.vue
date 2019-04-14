@@ -33,7 +33,7 @@
                   hide-details
                 ></v-text-field>
               </v-card-title>
-              <v-data-table :headers="headers" :items="bzamodules" :search="search">
+              <v-data-table :headers="headers" :items="allModules" :search="search">
                 <template slot="items" slot-scope="props">
                   <tr @dblclick="addModule(props.item)" :title="addModuleMSG">
                     <td class="text-xs-right">{{ props.item.moduleCode }}</td>
@@ -161,6 +161,9 @@ export default {
     degreq: {
       source: db.ref("DegreeRequirements"),
       asObject: true
+    },
+    nusmodules: {
+      source: db.ref("nusModules")
     }
   },
   computed: {
@@ -180,6 +183,44 @@ export default {
       }
       console.log(this.person);
       return dic;
+    },
+    allModules() {
+      var all = [];
+      var allMod = this.nusmodules;
+      var bzaMod = this.bzamodules;
+      var isbza = false;
+      for (var module of allMod) {
+        for (var bzaModule of bzaMod) {
+          if (module.moduleCode == bzaModule.moduleCode) {
+            all.push(bzaModule);
+            isbza = true;
+          }
+        }
+        if (!isbza) {
+          if (
+            ["GEH", "GEM", "GET", "GEQ", "GER"].includes(
+              module.moduleCode.slice(0, 3)
+            )
+          ) {
+            var newMod = {
+              moduleCode: module.moduleCode,
+              moduleType: "University Level Requirements",
+              modularCredits: parseInt(module.modularCredit)
+            };
+            all.push(newMod);
+          } else {
+            var newMod = {
+              moduleCode: module.moduleCode,
+              moduleType: "Unrestricted Electives",
+              modularCredits: parseInt(module.modularCredit)
+            };
+            all.push(newMod);
+          }
+        }
+        isbza = false;
+      }
+      console.log(all[10]);
+      return all;
     }
   },
   methods: {
@@ -221,6 +262,7 @@ export default {
       if (this.whatIfClicked) {
         this.runWhatIf();
       }
+
     },
     removeModule(moduleObject) {
       console.log(moduleObject);
