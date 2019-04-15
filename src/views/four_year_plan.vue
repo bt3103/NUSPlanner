@@ -52,14 +52,14 @@
         </v-layout>
       </v-container>
     </div>
-    <div class="studyplan_blank" v-show="submitted==1">
-    <img src="https://imgur.com/gpP6YQX.png" width="700px" height="500px" />
+    <div class="studyplan" v-show="submitted==1">
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_1.PNG?alt=media&token=e2ce8915-01f0-456a-8d53-388e0aaec44f' width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
-    <img src="https://imgur.com/zl27RE8" width="700px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_2.PNG?alt=media&token=eb8998e0-1c6b-4be7-8eb7-090060941ea4' width="700px" height="500px" />
     </div>
-    <div class="studyplan" v-show="submitted==3">
-    <img src="https://imgur.com/sCCHsyw.png" width="700px" height="500px" />
+    <div class="studyplan_blank" v-show="submitted==0">
+    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=29d0dfad-3735-4e13-9fc2-10011f19f8dd" width="700px" height="500px" />
     </div>
   </div>
 </template>
@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      submitted: 3,
+      submitted: 0,
       e1: [],
       e2: [],
       e3: [],
@@ -118,15 +118,21 @@ export default {
   methods: {
     isSubmitted: function()
     {
-      this.submitted =1;
+      if(this.e1=="Year 3 Sem 1" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" 
+      && this.e4 =="Financial Analytics" && this.e5 == "Business Acumen"){
+        this.submitted = 1;
+      }else{
+        alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan");
+        this.submitted = 0;
+      }
     },
     isReset: function()
     {
-      this.submitted = 3;
+      this.submitted = 0;
     },
     isCreate: function()
     {
-      this.submitted = 3;
+      this.submitted = 0;
     }
   }
 };
