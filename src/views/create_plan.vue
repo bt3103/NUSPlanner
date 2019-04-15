@@ -32,7 +32,10 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import Vuetable from "vuetable-2/src/components/Vuetable";
+import VueTable, {
+  VuetablePagination,
+  VuetablePaginationInfo
+} from "vuetable-2";
 
 export default {
   name: "create_plan",
@@ -81,7 +84,8 @@ export default {
   },
   components: {
     sidebar,
-    "vuetable-pagination": Vuetable.VuetablePagination
+    vuetable: VueTable,
+    "vuetable-pagination": VuetablePagination,
   },
   methods: {
     onPaginationData(paginationData) {
