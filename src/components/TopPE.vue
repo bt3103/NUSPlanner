@@ -49,6 +49,7 @@ export default {
   computed: {
     modules() {
       console.log(this.recommendation.topPE);
+      
       return this.recommendation.topPE[this.selectedSpecialisation];
     }
   },

@@ -7,25 +7,26 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs4>
-            <v-btn block flat @click='clickTab(0)'> Top Chosen Programme Elective Modules</v-btn>
-            </v-flex>
-            <v-flex xs4>
-              <v-btn block flat @click='clickTab(1)'>Top Chosen Minors</v-btn>
-            </v-flex>
-            <v-flex xs4>
-              <v-btn block flat @click='clickTab(2)'>Most Sort-after Skills</v-btn>
-            </v-flex>
-          </v-layout>
-        </v-container>
+            <v-btn block flat @click="clickTab(0)">Top Chosen Minors</v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn block flat @click="clickTab(1)">Top Chosen Programme Elective Modules</v-btn>
+          </v-flex>
+
+          <v-flex xs4>
+            <v-btn block flat @click="clickTab(2)">Most Sort-after Skills</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
-    <div v-if='showPE'>
-      <toppe />
+    <div v-if="showPE">
+      <toppe/>
     </div>
-    <div v-if='showMinor'>
-      <topminor />
+    <div v-if="showMinor">
+      <topminor/>
     </div>
-    <div v-if='showSkill'>
-      <topskill />
+    <div v-if="showSkill">
+      <topskill/>
     </div>
 
     <!-- <div class="menus">
@@ -84,7 +85,7 @@
           </v-container>
         </v-expansion-panel-content>
       </v-expansion-panel>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -104,23 +105,29 @@ export default {
   },
   data() {
     return {
-      showPE:true,
-      showMinor:false,
-      showSkill:false,
+      showPE: false,
+      showMinor: true,
+      showSkill: false,
       panel: [],
-      popularPE:[
-        {title:'Top Four Chosen PE Modules',
-        list:[
-          {moduleCode:"BT4013",
-          moduleName:'Analytics for Capital Market Trading and Investment',
-          pastCohort:[
+      popularPE: [
+        {
+          title: "Top Four Chosen PE Modules",
+          list: [
             {
-            sem:'AY18/19S2',
-            cohortSize:50}]},
-          {},
-          {},
-          {}
-        ]}
+              moduleCode: "BT4013",
+              moduleName: "Analytics for Capital Market Trading and Investment",
+              pastCohort: [
+                {
+                  sem: "AY18/19S2",
+                  cohortSize: 50
+                }
+              ]
+            },
+            {},
+            {},
+            {}
+          ]
+        }
       ],
       items: [
         {
@@ -144,7 +151,7 @@ export default {
             { message: "Statistic" },
             { message: "Computer Science" },
             { message: "Finance" },
-            { message:'Health Analytics'}
+            { message: "Health Analytics" }
           ]
         },
         {
@@ -172,21 +179,24 @@ export default {
     none() {
       this.panel = [];
     },
-    clickTab(n){
-      console.log(n)
-      if(n ==0){
-        this.showPE = true;
-        this.showMinor = false;
-        this.showSkill = false
-      }else if(n == 1){
+    clickTab(n) {
+      console.log(n);
+      if (n == 0) {
         this.showPE = false;
         this.showMinor = true;
-        this.showSkill = false
-      }else{
+        this.showSkill = false;
+        console.log('minor')
+      } else if (n == 1) {
+        this.showPE = true;
+        this.showMinor = false;
+        this.showSkill = false;
+        console.log('pe')
+      } else if(n==2){
         this.showPE = false;
         this.showMinor = false;
-        this.showSkill = true
-      }
+        this.showSkill = true;
+        console.log('skill')
+      }else{}
     }
   }
 };

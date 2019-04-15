@@ -38,7 +38,7 @@
                   <tr @dblclick="addModule(props.item)" :title="addModuleMSG">
                     <td class="text-xs-right">{{ props.item.moduleCode }}</td>
                     <td class="text-xs-right">{{ props.item.moduleType }}</td>
-                    <td class="text-xs-right">{{ props.item.modularCredits }}</td>
+                    <td class="text-xs-right">{{ props.item.modularCredit }}</td>
                   </tr>
                 </template>
                 <v-alert
@@ -145,7 +145,7 @@ export default {
       headers: [
         { text: "Module Code", value: "moduleCode" },
         { text: "Module Type", value: "moduleType" },
-        { text: "MC", value: "MC" }
+        { text: "MC", value: "modularCredit" }
       ],
       fab: false
     };
@@ -175,7 +175,7 @@ export default {
         for (var id in this.person.modulesTaken) {
           var currMod = this.person.modulesTaken[id];
           if (currMod.moduleType == currType) {
-            count += currMod.modularCredits;
+            count += currMod.modularCredit;
           }
         }
         dic[index].earned = count;
@@ -205,14 +205,14 @@ export default {
             var newMod = {
               moduleCode: module.moduleCode,
               moduleType: "University Level Requirements",
-              modularCredits: parseInt(module.modularCredit)
+              modularCredit: parseInt(module.modularCredit)
             };
             all.push(newMod);
           } else {
             var newMod = {
               moduleCode: module.moduleCode,
               moduleType: "Unrestricted Electives",
-              modularCredits: parseInt(module.modularCredit)
+              modularCredit: parseInt(module.modularCredit)
             };
             all.push(newMod);
           }
@@ -239,7 +239,7 @@ export default {
           this.whatIf.moduleList.push({
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredits,
+            MC: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           });
@@ -251,7 +251,7 @@ export default {
           {
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredits,
+            MC: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           }
@@ -344,7 +344,7 @@ export default {
         var module = getModule(currMod.moduleCode);
         var currType = module.moduleType;
         var PEGroup = module.PEGroup;
-        var MC = module.modularCredits;
+        var MC = module.modularCredit;
         var modGroup = currMod.moduleCode.slice(0, 3);
         var modLevel = currMod.moduleCode.slice(3, 4);
         if (currType == "University Requirements") {
