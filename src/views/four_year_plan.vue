@@ -53,13 +53,13 @@
       </v-container>
     </div>
     <div class="studyplan" v-show="submitted==1">
-    <img src=../assets/studyplan_1.png width="700px" height="500px" />
+    <img src=../assets/studyplan_1.PNG width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
-    <img src=../assets/studyplan_2.png width="700px" height="500px" />
+    <img src=../assets/studyplan_2.PNG width="700px" height="500px" />
     </div>
     <div class="studyplan_blank" v-show="submitted==0">
-    <img src=../assets/studyplan_blank.png width="700px" height="500px" />
+    <img src=../assets/studyplan_blank.PNG width="700px" height="500px" />
     </div>
   </div>
 </template>
@@ -119,8 +119,12 @@ export default {
   methods: {
     isSubmitted: function()
     {
-      if(this.e1=="Year 3 Sem 1"){
-        this.submitted = 1
+      if(this.e1=="Year 3 Sem 1" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" 
+      && this.e4 =="Financial Analytics" && this.e5 == "Business Acumen"){
+        this.submitted = 1;
+      }else{
+        alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan")
+        this.submitted = 0;
       }
     },
     isReset: function()
