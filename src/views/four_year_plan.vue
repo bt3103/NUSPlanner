@@ -46,7 +46,7 @@
               attach="dropdown"
             ></v-select>
             <v-btn block color="secondary" dark @click="isSubmitted()">Submit</v-btn>
-            <v-btn block color="secondary" dark @click="isCreate()">Create</v-btn>
+            <v-btn block color="secondary" dark @click="toCreate()">Create</v-btn>
             <v-btn block color="secondary" dark @click="isReset()">Reset</v-btn>
           </v-flex>
         </v-layout>
@@ -130,9 +130,9 @@ export default {
     {
       this.submitted = 0;
     },
-    isCreate: function()
+    toCreate: function()
     {
-      this.submitted = 0;
+      router.push({name: 'create_plan'})
     }
   }
 };

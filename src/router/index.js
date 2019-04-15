@@ -46,6 +46,11 @@ export default new VueRouter({
       path: "@/views/what_if_analysis",
       name: "what_if_analysis",
       component: WhatIfAnalysisComponent
+    },
+    {
+      path: "@/views/create_plan",
+      name: "create_plan",
+      component: CreatePlanComponent
     }
   ]
 });
