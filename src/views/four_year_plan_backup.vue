@@ -52,13 +52,13 @@
         </v-layout>
       </v-container>
     </div>
-    <div class="studyplan" v-show="submitted==1">
+    <div class="studyplan_blank" v-show="submitted==1">
     <img src=../assets/studyplan_1.png width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
     <img src=../assets/studyplan_2.png width="700px" height="500px" />
     </div>
-    <div class="studyplan_blank" v-show="submitted==0">
+    <div class="studyplan" v-show="submitted==3">
     <img src=../assets/studyplan_blank.png width="700px" height="500px" />
     </div>
   </div>
@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      submitted: 0,
+      submitted: 3,
       e1: [],
       e2: [],
       e3: [],
@@ -119,17 +119,15 @@ export default {
   methods: {
     isSubmitted: function()
     {
-      if(this.e1=="Year 3 Sem 1"){
-        this.submitted = 1
-      }
+      this.submitted =1;
     },
     isReset: function()
     {
-      this.submitted = 0;
+      this.submitted = 3;
     },
     isCreate: function()
     {
-      this.submitted = 0;
+      this.submitted = 3;
     }
   }
 };
