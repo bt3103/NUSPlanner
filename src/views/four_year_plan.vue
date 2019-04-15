@@ -53,20 +53,19 @@
       </v-container>
     </div>
     <div class="studyplan" v-show="submitted==1">
-    <img src=../assets/studyplan_1.PNG width="700px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_1.PNG?alt=media&token=e2ce8915-01f0-456a-8d53-388e0aaec44f' width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
-    <img src=../assets/studyplan_2.PNG width="700px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_2.PNG?alt=media&token=eb8998e0-1c6b-4be7-8eb7-090060941ea4' width="700px" height="500px" />
     </div>
     <div class="studyplan_blank" v-show="submitted==0">
-    <img src=../assets/studyplan_blank.PNG width="700px" height="500px" />
+    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=29d0dfad-3735-4e13-9fc2-10011f19f8dd" width="700px" height="500px" />
     </div>
   </div>
 </template>
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import db from '@/firebase'
 
 export default {
   name: "four_year_plan",
@@ -123,7 +122,7 @@ export default {
       && this.e4 =="Financial Analytics" && this.e5 == "Business Acumen"){
         this.submitted = 1;
       }else{
-        alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan")
+        alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan");
         this.submitted = 0;
       }
     },
