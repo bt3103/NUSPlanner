@@ -19,6 +19,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1 ",
     "vue": "^2.5.2",
+    "vue-chartist": "2.2.0",
     "vue-chartjs": "3.4.0",
     "vue-router": "3.0.2",
     "vue-schedule": "2.0.4",

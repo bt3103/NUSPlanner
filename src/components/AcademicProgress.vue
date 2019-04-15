@@ -133,13 +133,16 @@
       <br>
       <div class="moduleInfo">
         <button class="collapsible" @click="clickGrades">Grades Breakdown</button>
-        <v-container fluid>
-          <v-data-table
-            :headers="moduleCats"
-            :items="person.modulesTaken"
-            class="elevation-1"
-            v-if="showGrades"
-          >
+        <!--<v-expansion-panel v-model="clickGrades" expand focusable light>
+          <v-expansion-panel-content>
+            <div slot="header">Grades Breakdown</div> -->
+            <v-card>
+            <v-data-table
+              :headers="moduleCats"
+              :items="person.modulesTaken"
+              class="elevation-1"
+              v-if='showGrades'
+            >
             <template slot="items" slot-scope="props">
               <td>{{ props.item.moduleCode }}</td>
               <td class="text-xs-right">{{ props.item.moduleName }}</td>
@@ -150,7 +153,9 @@
               <td class="text-xs-right">{{ props.item.semesterTaken }}</td>
             </template>
           </v-data-table>
-        </v-container>
+          </v-card>
+        </v-expansion-panel-content>
+        </v-expansion-panel>
         <!--<button class="collapsible" @click="clickWhatIf">What-If Analysis</button>
         <div v-if="showWhatIf">
           <span class="form-style-2-heading">Choose Modules for What-If Analysis</span>
