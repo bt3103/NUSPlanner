@@ -50,11 +50,6 @@ export default {
           name: "time_table"
         },
         {
-          title: "wkplan_test",
-          icon: "calendar_today",
-          name: "wkplan_test"
-        },
-        {
           title: "Study Plan",
           icon: "assignment",
           name: "four_year_plan"

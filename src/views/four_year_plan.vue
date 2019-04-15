@@ -53,19 +53,20 @@
       </v-container>
     </div>
     <div class="studyplan_blank" v-show="submitted==1">
-    <img src="https://imgur.com/gpP6YQX.png" width="700px" height="500px" />
+    <img src=../assets/studyplan_1.png width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
-    <img src="https://imgur.com/zl27RE8" width="700px" height="500px" />
+    <img src=../assets/studyplan_2.png width="700px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==3">
-    <img src="https://imgur.com/sCCHsyw.png" width="700px" height="500px" />
+    <img src=../assets/studyplan_blank.png width="700px" height="500px" />
     </div>
   </div>
 </template>
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
+import db from '@/firebase'
 
 export default {
   name: "four_year_plan",
