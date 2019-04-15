@@ -87,8 +87,7 @@ export default {
     };
   },
   components: {
-    sidebar,
-    JqxScheduler
+    sidebar
   },
   methods: {
     addModule: function() {
