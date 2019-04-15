@@ -33,12 +33,12 @@
                   hide-details
                 ></v-text-field>
               </v-card-title>
-              <v-data-table :headers="headers" :items="bzamodules" :search="search">
+              <v-data-table :headers="headers" :items="allModules" :search="search">
                 <template slot="items" slot-scope="props">
                   <tr @dblclick="addModule(props.item)" :title="addModuleMSG">
                     <td class="text-xs-right">{{ props.item.moduleCode }}</td>
                     <td class="text-xs-right">{{ props.item.moduleType }}</td>
-                    <td class="text-xs-right">{{ props.item.modularCredits }}</td>
+                    <td class="text-xs-right">{{ props.item.modularCredit }}</td>
                   </tr>
                 </template>
                 <v-alert
@@ -145,7 +145,7 @@ export default {
       headers: [
         { text: "Module Code", value: "moduleCode" },
         { text: "Module Type", value: "moduleType" },
-        { text: "MC", value: "MC" }
+        { text: "MC", value: "modularCredit" }
       ],
       fab: false
     };
@@ -161,6 +161,9 @@ export default {
     degreq: {
       source: db.ref("DegreeRequirements"),
       asObject: true
+    },
+    nusmodules: {
+      source: db.ref("nusModules")
     }
   },
   computed: {
@@ -172,7 +175,7 @@ export default {
         for (var id in this.person.modulesTaken) {
           var currMod = this.person.modulesTaken[id];
           if (currMod.moduleType == currType) {
-            count += currMod.modularCredits;
+            count += currMod.modularCredit;
           }
         }
         dic[index].earned = count;
@@ -180,6 +183,44 @@ export default {
       }
       console.log(this.person);
       return dic;
+    },
+    allModules() {
+      var all = [];
+      var allMod = this.nusmodules;
+      var bzaMod = this.bzamodules;
+      var isbza = false;
+      for (var module of allMod) {
+        for (var bzaModule of bzaMod) {
+          if (module.moduleCode == bzaModule.moduleCode) {
+            all.push(bzaModule);
+            isbza = true;
+          }
+        }
+        if (!isbza) {
+          if (
+            ["GEH", "GEM", "GET", "GEQ", "GER"].includes(
+              module.moduleCode.slice(0, 3)
+            )
+          ) {
+            var newMod = {
+              moduleCode: module.moduleCode,
+              moduleType: "University Level Requirements",
+              modularCredit: parseInt(module.modularCredit)
+            };
+            all.push(newMod);
+          } else {
+            var newMod = {
+              moduleCode: module.moduleCode,
+              moduleType: "Unrestricted Electives",
+              modularCredit: parseInt(module.modularCredit)
+            };
+            all.push(newMod);
+          }
+        }
+        isbza = false;
+      }
+      console.log(all[10]);
+      return all;
     }
   },
   methods: {
@@ -198,7 +239,7 @@ export default {
           this.whatIf.moduleList.push({
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredits,
+            MC: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           });
@@ -210,7 +251,7 @@ export default {
           {
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredits,
+            MC: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           }
@@ -221,6 +262,7 @@ export default {
       if (this.whatIfClicked) {
         this.runWhatIf();
       }
+
     },
     removeModule(moduleObject) {
       console.log(moduleObject);
@@ -302,7 +344,7 @@ export default {
         var module = getModule(currMod.moduleCode);
         var currType = module.moduleType;
         var PEGroup = module.PEGroup;
-        var MC = module.modularCredits;
+        var MC = module.modularCredit;
         var modGroup = currMod.moduleCode.slice(0, 3);
         var modLevel = currMod.moduleCode.slice(3, 4);
         if (currType == "University Requirements") {
