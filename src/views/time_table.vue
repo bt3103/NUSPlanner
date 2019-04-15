@@ -30,15 +30,10 @@
       >
     </div>
     <div class="horizontal_timetable" v-show="empty_horizontal">
-      <img src=../assets/horizontal_timetable.png width="850px" height="400px"
+      <JqxScheduler :theme="'material'" ref="myScheduler"
+        :width="getWidth" :height="500" :source="dataAdapter" :date="date"  :view="'weekView'" :showLegend="true"
+        :appointmentDataFields="appointmentDataFields" :views="views"  :resources="resources" 
       />
-    </div>
-    <div class="vertical_timetable" v-show="!horizontal">
-      <img src=../assets/vertical_timetable.png width="700px" height="500px" />
-    </div>
-    <div class="horizontal_timetable_withmodule" v-show="moduleAdded">
-      <img src=../assets/horizontal_timetable_3103.png width="850px"
-      height="400px" />
     </div>
     <div class="exam_table" v-show="examtable">
       <img src=../assets/examtable.png width="600px" height="150px" />
@@ -48,6 +43,7 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
+import JqxScheduler from 'jqwidgets-scripts/jqwidgets-vue/vue_jqxscheduler.vue'
 
 export default {
   name: "time_table",
@@ -64,11 +60,36 @@ export default {
         "BT3101 Business Analytics Capstone Project",
         "BT3102 Computational Methods for Business Analytics",
         "BT3103 Application Systems Development for Business Analytics"
-      ]
+      ],
+      getWidth: '700',
+      date: new jqx.date(2019, 8, 12),
+      appointmentDataFields: 
+                {
+                    from: 'start',
+                    to: 'end',
+                    id: 'id',
+                    description: 'description',
+                    location: 'place',
+                    subject: 'subject',
+                    resourceId: 'calendar'
+                },
+      resources:
+                {
+                    colorScheme: 'scheme05',
+                    dataField: 'calendar',
+                    source: new jqx.dataAdapter(this.source)
+                },
+      views:
+                [
+                    { type: 'dayView', appointmentsRenderMode: 'exactTime' },
+                    { type: 'weekView', appointmentsRenderMode: 'exactTime' },
+                    { type: 'monthView', appointmentsRenderMode: 'exactTime' }
+                ]
     };
   },
   components: {
-    sidebar
+    sidebar,
+    JqxScheduler
   },
   methods: {
     addModule: function() {
@@ -91,7 +112,52 @@ export default {
     empty_horizontal() {
       return this.horizontal && !this.moduleAdded && !this.examtable;
     }
-  }
+  },
+  beforeCreate: function () {
+            const generateAppointments =  function () {
+                const appointments = new Array();
+                const appointment1 = {
+                    id: 'id1',
+                    description: 'Probability and statistics',
+                    location: 'Utown-Audi2',
+                    subject: 'ST2334',
+                    calendar: 'CORE',
+                    start: new Date(2019, 8,12, 10, 0, 0),
+                    end: new Date(2019, 8, 12, 12, 0, 0)
+                };
+                const appointment2 = {
+                    id: 'id2',
+                    description: 'Global Environmental Issues',
+                    location: 'LT1',
+                    subject: 'GEH1025',
+                    calendar: 'URL',
+                    start: new Date(2019,8,12, 14, 0, 0),
+                    end: new Date(2019,8, 12, 16, 0, 0)
+                }
+                appointments.push(appointment1);
+                appointments.push(appointment2);
+                return appointments;
+            }
+            this.source =
+                {
+                    dataType: 'array',
+                    dataFields: [
+                        { name: 'id', type: 'string' },
+                        { name: 'description', type: 'string' },
+                        { name: 'location', type: 'string' },
+                        { name: 'subject', type: 'string' },
+                        { name: 'calendar', type: 'string' },
+                        { name: 'start', type: 'date' },
+                        { name: 'end', type: 'date' }
+                    ],
+                    id: 'id',
+                    localData: generateAppointments()
+                };
+            this.dataAdapter = new jqx.dataAdapter(this.source);
+        },
+        mounted: function () {
+            this.$refs.myScheduler.ensureAppointmentVisible('id1');    
+        }
 };
 </script>
 
@@ -103,7 +169,7 @@ export default {
   float: left;
 }
 
-.timetable {
+.horizontal_timetable {
   display: flex;
   justify-content: left;
   align-items: left;

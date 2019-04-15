@@ -1,10 +1,8 @@
 <template>
   <div>
-    <br /><br />
-    <div
-      class="academicProgress"
-      :style="{ 'padding-left': '210px', width: '95%' }"
-    >
+    <br>
+    <br>
+    <div class="academicProgress" :style="{ 'padding-left': '210px', width: '95%' }">
       <v-card>
         <v-container fluid grid-list-lg>
           <v-layout row wrap>
@@ -21,17 +19,18 @@
                   <v-flex xs7>
                     <v-card-title primary-title>
                       <div>
-                        <div class="headline">{{ personalInfo.name }}</div>
+                        <div class="headline">{{ person.personalInfo.name }}</div>
                         <div>
                           <v-icon>fas fa-birthday-cake</v-icon>
-                          {{ personalInfo.birthday }}
+                          {{ person.personalInfo.birthday }}
                         </div>
                         <div>
-                          <v-icon>fas fa-at</v-icon> {{ personalInfo.email }}
+                          <v-icon>fas fa-at</v-icon>
+                          {{ person.personalInfo.email }}
                         </div>
                         <div>
                           <v-icon>fas fa-mobile</v-icon>
-                          {{ personalInfo.contactNumber }}
+                          {{ person.personalInfo.contactNumber }}
                         </div>
                       </div>
                     </v-card-title>
@@ -41,16 +40,16 @@
                 <v-card-text class="pa-3">
                   <v-spacer></v-spacer>
                   <div>
-                    <p>Cohort: {{ degreeInfo.cohortYear }}</p>
-                    <p>Home Faculty: {{ degreeInfo.homeFaculty1 }}</p>
-                    <p>Academic Major: {{ degreeInfo.academicMajor1 }}</p>
-                    <p>Degree: {{ degreeInfo.academicDegree1 }}</p>
-                    <p v-if="!degreeInfo.academicMajor2 == ''">
-                      Second Major: {{ degreeInfo.academicMajor2 }}
-                    </p>
-                    <p v-if="!degreeInfo.academicMinor == ''">
-                      Academic Minor: {{ degreeInfo.academicMinor }}
-                    </p>
+                    <p>Cohort: {{ person.personalInfo.cohortYear }}</p>
+                    <p>Home Faculty: {{ person.personalInfo.homeFaculty1 }}</p>
+                    <p>Academic Major: {{ person.personalInfo.academicMajor1 }}</p>
+                    <p>Degree: {{ person.personalInfo.academicDegree1 }}</p>
+                    <p
+                      v-if="!person.personalInfo.academicMajor2 == ''"
+                    >Second Major: {{ person.personalInfo.academicMajor2 }}</p>
+                    <p
+                      v-if="!person.personalInfo.academicMinor == ''"
+                    >Academic Minor: {{ person.personalInfo.academicMinor }}</p>
                   </div>
                 </v-card-text>
               </v-card>
@@ -58,21 +57,13 @@
           </v-layout>
         </v-container>
       </v-card>
-      <button class="collapsible" @click="clickOverallProgress">
-        Overall Progress
-      </button>
+      <button class="collapsible" @click="clickOverallProgress">Overall Progress</button>
       <v-card class="mx-auto" max-width="980" v-if="showOverall">
         <v-card-title>
-          <div class="subheading font-weight-light grey--text">
-            By Semester CAP
-          </div>
+          <div class="subheading font-weight-light grey--text">By Semester CAP</div>
         </v-card-title>
-        <v-sheet
-          class="v-sheet--offset mx-auto"
-          color="cyan lighten-3"
-          max-width="calc(100% - 72px)"
-        >
-          <v-sparkline
+        <v-sheet class="v-sheet--offset mx-auto" color="white" max-width="calc(100% - 72px)">
+          <!--          <v-sparkline
             :labels="bySemCAP[0]"
             :value="bySemCAP[1]"
             color="white"
@@ -81,72 +72,71 @@
             show-labels
             auto-draw
           ></v-sparkline>
+          -->
+          <chart
+            :data="bySemCAP[1]"
+            :label="bySemCAP[0]"
+            :background="someRandomColor[2]"
+            :options="{ responsive: true, maintainAspectRatio: false }"
+          ></chart>
         </v-sheet>
         <v-divider class="my-2"></v-divider>
-        <v-icon class="mr-2" small> mdi-clock </v-icon>
+        <v-icon class="mr-2" small>mdi-clock</v-icon>
         <v-card-text class="pt-0">
-          <div class="subheading font-weight-light grey--text">
-            Current CAP
+          <div class="subheading font-weight-light grey--text">Current CAP
             <div class="container">
               <div
                 :style="{
                   'background-color': someRandomColor[1],
                   width: (currentCAP / 5.0) * 100 + '%'
                 }"
-              >
-                {{ currentCAP }}/5.0
-              </div>
+              >{{ currentCAP }}/5.0</div>
             </div>
           </div>
           <v-divider class="my-2"></v-divider>
-          <v-icon class="mr-2" small> mdi-clock </v-icon>
-          <div class="subheading font-weight-light grey--text">
-            Degree Progress
+          <v-icon class="mr-2" small>mdi-clock</v-icon>
+          <div class="subheading font-weight-light grey--text">Degree Progress
             <div class="container">
               <div
                 :style="{
                   'background-color': someRandomColor[0],
                   width: (totalMCEarned / totalMCRequired) * 100 + '%'
                 }"
-              >
-                {{ totalMCEarned }}/{{ totalMCRequired }} Modular Credits
-              </div>
+              >{{ totalMCEarned }}/{{ totalMCRequired }} Modular Credits</div>
             </div>
           </div>
         </v-card-text>
       </v-card>
-      <br /><br />
+      <br>
+      <br>
 
-      <button class="collapsible" @click="clickRequirements">
-        Requirements Breakdown
-      </button>
+      <!--<button class="collapsible" @click="clickRequirements">Requirements Breakdown</button>
       <div class="text-xs-center" v-if="showRequirements">
         <v-container fluid>
           <v-layout row>
             <v-flex xs4 v-for="reqtype of byModuleTypeProgress" :key="type">
-              {{ reqtype.type }}<br /><br />
+              {{ reqtype.type }}
+              <br>
+              <br>
               <v-progress-circular
                 :rotate="360"
                 :size="100"
                 :width="15"
                 :value="reqtype.percentage"
                 color="teal"
-              >
-                {{ reqtype.earned }}/{{ reqtype.number }} MC
-              </v-progress-circular>
+              >{{ reqtype.earned }}/{{ reqtype.number }} MC</v-progress-circular>
             </v-flex>
           </v-layout>
         </v-container>
-      </div>
-      <br /><br />
+      </div> -->
+      <br>
+      <br>
       <div class="moduleInfo">
-        <button class="collapsible" @click="clickGrades">
-          Grades Breakdown
-        </button>
+        <button class="collapsible" @click="clickGrades">Grades Breakdown</button>
         <v-container fluid>
           <v-data-table
             :headers="moduleCats"
-            :items="modulesTaken"
+            :items="person.modulesTaken"
             class="elevation-1"
             v-if="showGrades"
           >
@@ -161,13 +151,9 @@
             </template>
           </v-data-table>
         </v-container>
-        <button class="collapsible" @click="clickWhatIf">
-          What-If Analysis
-        </button>
+        <!--<button class="collapsible" @click="clickWhatIf">What-If Analysis</button>
         <div v-if="showWhatIf">
-          <span class="form-style-2-heading">
-            Choose Modules for What-If Analysis
-          </span>
+          <span class="form-style-2-heading">Choose Modules for What-If Analysis</span>
           <v-container fluid grid-list-md text-xs-center>
             <v-layout row wrap>
               <v-flex xs6>
@@ -220,24 +206,14 @@
                   :items="whatIf.moduleList"
                   select-all
                   class="elevation-1"
-                  v-if="showWhatIfTable"
                 >
                   <template slot="items" slot-scope="props">
-                    <tr
-                      :active="props.selected"
-                      @click="props.selected = !props.selected;"
-                    >
+                    <tr :active="props.selected" @click="props.selected = !props.selected;">
                       <td>
-                        <v-checkbox
-                          v-model="props.selected"
-                          primary
-                          hide-details
-                        ></v-checkbox>
+                        <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                       </td>
                       <td>{{ props.item.moduleCode }}</td>
-                      <td class="text-xs-right">
-                        {{ props.item.expectedGrade }}
-                      </td>
+                      <td class="text-xs-right">{{ props.item.expectedGrade }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -245,12 +221,13 @@
             </v-layout>
           </v-container>
           <v-container fluid>
-            <p v-if="whatIfClicked">
-              Graduation Requirements: <b>{{ graduationStatus }}</b> <br />
-              Expected Grade: <b>{{ expectedGrade }}</b>
+            <p v-if="whatIfClicked">Graduation Requirements:
+              <b>{{ graduationStatus }}</b>
+              <br>Expected Grade:
+              <b>{{ expectedGrade }}</b>
             </p>
           </v-container>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -260,6 +237,7 @@
 import chart from "/function/chart.js";
 import SortedTablePlugin from "vue-sorted-table";
 import Vue from "vue";
+import db from '@/firebase'
 Vue.use(SortedTablePlugin);
 
 export default {
@@ -267,39 +245,8 @@ export default {
   data() {
     return {
       showOverall: true,
-      showRequirements: false,
       showGrades: false,
-      showWhatIf: false,
-      showWhatIfTable: false,
       tableMessage: "Click to sort",
-      whatIfClicked: false,
-      graduationStatus: "Unsatisfied",
-      expectedGrade: 0,
-      selected: [],
-      personalInfo: {
-        name: "Kris Wu",
-        metricNumber: "",
-        email: "kris.wu@u.nus.edu",
-        contactNumber: "9123 4567",
-        address: "",
-        birthday: "06 November 1990"
-      },
-      degreeInfo: {
-        cohortYear: "AY 2015/2016",
-        homeFaculty1: "School of Computing",
-        homeFaculty2: "",
-        academicMajor1: "Business Analytics",
-        academicMajor2: "",
-        academicDegree1: "Bachelor of Science (Honors)",
-        academicDegree2: "",
-        academicMinor: "",
-        requiredMC: [
-          { type: "University Level Requirements", number: 20 },
-          { type: "Degree Requirements", number: 120 },
-          { type: "Unrestricted Electives", number: 20 }
-        ],
-        graduated: false
-      },
       moduleCats: [
         { text: "Module Code", value: "moduleCode" },
         { text: "Module Name", value: "moduleName" },
@@ -311,80 +258,6 @@ export default {
       ],
       moduleTableSortKey: "semesterTaken",
       moduleTableSortOrder: "asc",
-      modulesTaken: [
-        {
-          moduleCode: "BT1101",
-          moduleName: "Introduction to Business Analytics",
-          modularCredits: 4,
-          gradeEarned: 4.5,
-          whetherSU: "N",
-          moduleType: "Degree Requirements",
-          semesterTaken: "Y1 S1"
-        },
-        {
-          moduleCode: "GEH1001",
-          moduleName: "Globalization and New Media",
-          modularCredits: 4,
-          gradeEarned: 4.0,
-          whetherSU: "N",
-          moduleType: "University Level Requirements",
-          semesterTaken: "Y1 S1"
-        },
-        {
-          moduleCode: "EC2101",
-          moduleName: "Microeconomics I",
-          modularCredits: 4,
-          gradeEarned: 5.0,
-          whetherSU: "N",
-          moduleType: "Unrestricted Electives",
-          semesterTaken: "Y1 S1"
-        },
-        {
-          moduleCode: "CS1010S",
-          moduleName: "Programming Methodology",
-          modularCredits: 4,
-          gradeEarned: 5.0,
-          whetherSU: "N",
-          moduleType: "Degree Requirements",
-          semesterTaken: "Y1 S1"
-        },
-        {
-          moduleCode: "MKT1003X",
-          moduleName: "Principles of Marketing",
-          modularCredits: 4,
-          gradeEarned: 4.0,
-          whetherSU: "Y",
-          moduleType: "Degree Requirements",
-          semesterTaken: "Y1 S1"
-        },
-        {
-          moduleCode: "BT2101",
-          moduleName: "Decision Making Methods and Tools",
-          modularCredits: 4,
-          gradeEarned: 4.5,
-          whetherSU: "N",
-          moduleType: "Degree Requirements",
-          semesterTaken: "Y1 S2"
-        },
-        {
-          moduleCode: "IS1103",
-          moduleName: "IT Innovation in Organisation and Society",
-          modularCredits: 4,
-          gradeEarned: 3.5,
-          whetherSU: "N",
-          moduleType: "Degree Requirements",
-          semesterTaken: "Y1 S2"
-        },
-        {
-          moduleCode: "GES1002",
-          moduleName: "Global EC Dimension of Singapore",
-          modularCredits: 4,
-          gradeEarned: 4.0,
-          whetherSU: "N",
-          moduleType: "University Level Requirements",
-          semesterTaken: "Y1 S2"
-        }
-      ],
       whatIf: [
         { newModuleCode: "" },
         { newModuleExpectedGrade: "" },
@@ -394,33 +267,44 @@ export default {
       ]
     };
   },
+  firebase: {
+    person:{
+      source: db.ref('A0123456B'),
+      asObject:true
+    },
+    degreq:{
+      source:db.ref('DegreeRequirements'),
+      asObject:true
+    }
+  },
+  props: ["userName"],
   computed: {
     totalMCRequired() {
       var count = 0.0;
-      for (var item in this.degreeInfo.requiredMC) {
-        count += this.degreeInfo.requiredMC[item].number;
+      for (var item in this.degreq.BusinessAnalytics) {
+        count += this.degreq.BusinessAnalytics[item].number;
       }
-      console.log(count);
+      console.log('total MC required '+count);
       return count;
     },
     totalMCEarned() {
       var count = 0.0;
-      for (var item in this.modulesTaken) {
-        count += this.modulesTaken[item].modularCredits;
+      for (var item in this.person.modulesTaken) {
+        count += this.person.modulesTaken[item].modularCredits;
       }
-      console.log(count);
+      console.log('MC taken '+count);
       return count;
     },
     currentCAP() {
       var count = 0;
       var mc = 0;
-      for (var item in this.modulesTaken) {
-        var currMod = this.modulesTaken[item];
+      for (var item in this.person.modulesTaken) {
+        var currMod = this.person.modulesTaken[item];
         if (currMod.whetherSU != "Y") {
           count +=
-            this.modulesTaken[item].modularCredits *
-            this.modulesTaken[item].gradeEarned;
-          mc += this.modulesTaken[item].modularCredits;
+            this.person.modulesTaken[item].modularCredits *
+            this.person.modulesTaken[item].gradeEarned;
+          mc += this.person.modulesTaken[item].modularCredits;
         }
       }
       var cap = count / mc;
@@ -428,7 +312,7 @@ export default {
       return cap.toFixed(2);
     },
     byModuleTypeProgress() {
-      var dic = this.degreeInfo.requiredMC;
+      var dic = this.degreq.BusinessAnalytics;
       for (var index in dic) {
         var currType = dic[index].type;
         var count = 0;
@@ -455,8 +339,8 @@ export default {
         "Y4 S1": [],
         "Y4 S2": []
       };
-      for (var index in this.modulesTaken) {
-        var currMod = this.modulesTaken[index];
+      for (var index in this.person.modulesTaken) {
+        var currMod = this.person.modulesTaken[index];
         var currSem = currMod.semesterTaken;
         var currCAP = currMod.gradeEarned;
         var currMC = currMod.modularCredits;
@@ -529,26 +413,14 @@ export default {
       } else {
         this.showOverall = true;
       }
-    },
-    clickRequirements() {
-      if (this.showRequirements == true) {
-        this.showRequirements = false;
-      } else {
-        this.showRequirements = true;
-      }
+      var user = JSON.parse(this.userName);
+      console.log(user);
     },
     clickGrades() {
       if (this.showGrades == true) {
         this.showGrades = false;
       } else {
         this.showGrades = true;
-      }
-    },
-    clickWhatIf() {
-      if (this.showWhatIf == true) {
-        this.showWhatIf = false;
-      } else {
-        this.showWhatIf = true;
       }
     },
     updateSort(sortKey) {
@@ -563,108 +435,6 @@ export default {
         this.moduleTableSortOrder = "asc";
       }
     },
-    addModule() {
-      if (this.whatIf.moduleList) {
-        var count = 0;
-        for (var module of this.whatIf.moduleList) {
-          if (module.moduleCode === this.whatIf.newModuleCode) {
-            count += 1;
-          }
-        }
-        if (count === 0) {
-          this.whatIf.moduleList.push({
-            moduleCode: this.whatIf.newModuleCode,
-            expectedGrade: this.whatIf.newModuleExpectedGrade
-          });
-        } else {
-          alert("You have already added this moduel!");
-        }
-      } else {
-        this.whatIf.moduleList = [
-          {
-            moduleCode: this.whatIf.newModuleCode,
-            expectedGrade: this.whatIf.newModuleExpectedGrade
-          }
-        ];
-      }
-      this.whatIf.newModuleCode = "";
-      this.whatIf.newModuleExpectedGrade = "";
-      // show what-if module table only when there is module added
-      this.showWhatIfTable = true;
-      console.log(this.whatIf.moduleList);
-      if (this.whatIfClicked) {
-        this.runWhatIf();
-      }
-    },
-    removeModule() {
-      if (!this.whatIf.moduleList) {
-        alert("You have not added any modules yet.");
-      } else {
-        var hasMod = false;
-        for (var index in this.whatIf.moduleList) {
-          if (
-            this.whatIf.moduleList[index].moduleCode ===
-            this.whatIf.newModuleCode
-          ) {
-            hasMod = true;
-            this.whatIf.moduleList.splice(index, 1);
-            console.log(!this.whatIf.moduleList);
-            // hide what-if module table if all modules have been removrd
-            if (!this.whatIf.moduleList.length) {
-              this.showWhatIfTable = false;
-            }
-          }
-        }
-        if (!hasMod) {
-          alert("You have not added this module.");
-        }
-      }
-      this.whatIf.newModuleCode = "";
-      this.whatIf.newModuleExpectedGrade = "";
-      console.log(this.showWhatIfTable);
-      if (this.whatIfClicked) {
-        this.runWhatIf();
-      }
-    },
-    runWhatIf() {
-      //some simple logic here that decides whether graduatable using only MCs taken
-      this.whatIfClicked = true;
-      this.expectedGrade = this.currentCAP;
-      var creditsTaken = 0;
-      for (var module of this.modulesTaken) {
-        creditsTaken += module.modularCredits;
-      }
-      var whatifMC = 0;
-      for (var module of this.whatIf.moduleList) {
-        whatifMC += 4; //assumption here that all modules are 4MC, adjust later
-      }
-      if (creditsTaken + whatifMC >= 160) {
-        this.graduationStatus = "Satisfied";
-      }
-      if (this.whatIf.moduleList) {
-        //still assume that all modules are 4 mc first
-        var gradeDic = {
-          "A+": 5,
-          A: 5,
-          "A-": 4.5,
-          "B+": 4,
-          B: 3.5,
-          "B-": 3.0,
-          "C+": 2.5,
-          C: 2.0,
-          D: 1.5
-        };
-        var whatifGrade = 0;
-        for (var module of this.whatIf.moduleList) {
-          var currGrade = module.expectedGrade;
-          whatifGrade += 4 * gradeDic[currGrade];
-        }
-        var finalExpectedGrade =
-          (this.currentCAP * creditsTaken + whatifGrade) /
-          (creditsTaken + whatifMC);
-        this.expectedGrade = finalExpectedGrade.toFixed(2);
-      }
-    }
   },
   components: {
     chart
