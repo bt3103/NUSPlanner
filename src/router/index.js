@@ -5,6 +5,8 @@ import PlanComponent from "@/views/four_year_plan.vue";
 import ProfileComponent from "@/views/profile_page.vue";
 import timetableComponent from "@/views/time_table.vue";
 import RecommendationComponent from "@/views/recommendation.vue";
+import WhatIfAnalysisComponent from "@/views/what_if_analysis.vue";
+import WkPlanComponent from "@/views/wkplan_test.vue";
 
 Vue.use(VueRouter);
 
@@ -37,9 +39,19 @@ export default new VueRouter({
       component: ProfileComponent
     },
     {
-      path:"@/views/recommendation",
+      path: "@/views/recommendation",
       name: "recommendation",
       component: RecommendationComponent
+    },
+    {
+      path: "@/views/what_if_analysis",
+      name: "what_if_analysis",
+      component: WhatIfAnalysisComponent
+    },
+    {
+      path: "@/views/wkplan_test",
+      name: "wkplan_test",
+      component: WkPlanComponent
     }
   ]
 });

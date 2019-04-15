@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-  <div class = "header">
-    <page-header />
-  </div>
+    <div class="header">
+      <page-header/>
+    </div>
     <div id="nav">
-      <router-link
-        v-if="authenticated"
-        to="/login"
-        v-on:click.native="Logout();"
-        replace
-        >Logout</router-link
-      >
+      <router-link v-if="authenticated" to="/login" v-on:click.native="Logout();" replace>Logout</router-link>
     </div>
-    <div class="quotes" v-show="logout">
-      <img src=./assets/quotes.jpg width=100% height=100% />
-    </div>
+    <div class="quotes" v-show="logout"><img src=./assets/quotes.jpg width=100% height=100% /></div>
 
-    <router-view @authenticated="setAuthenticated" />
+    <router-view @authenticated="setAuthenticated"/>
+    <div class="footer">
+      <page-footer/>
+    </div>
   </div>
 </template>
 
 <script>
 import PageHeader from "@/components/Header.vue";
-
+import PageFooter from "@/components/Footer.vue";
 export default {
   name: "App",
   components: {
@@ -31,7 +26,7 @@ export default {
   data() {
     return {
       authenticated: false,
-      logout:false,
+      logout: false,
       mockAccount: {
         username: "A0123456B",
         password: "password"
