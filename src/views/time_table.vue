@@ -43,7 +43,6 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import JqxScheduler from 'jqwidgets-scripts/jqwidgets-vue/vue_jqxscheduler.vue'
 
 export default {
   name: "time_table",
