@@ -66,6 +66,7 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
+import router from '@/router/index.js';
 
 export default {
   name: "four_year_plan",

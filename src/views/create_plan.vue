@@ -32,73 +32,79 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
+import Vuetable from "vuetable-2/src/components/Vuetable";
+
 export default {
   name: "create_plan",
   data() {
     return {
-        fields: [
-      { 
-        name: 'time', 
-        title: '<span class="orange glyphicon glyphicon-user"></span> Semester',
-        sortField: 'time'
-      }, 
-      'Module 1','Module 2','Module 3','Module 4','Module 5','Overload Modules',
-      '__slot:actions'
-    ],
-    sortOrder: [
-      { field: 'time', direction: 'asc' }
-    ],
-    css: {
-      table: {
-        tableClass: 'table table-striped table-bordered table-hovered',
-        loadingClass: 'loading',
-        ascendingIcon: 'glyphicon glyphicon-chevron-up',
-        descendingIcon: 'glyphicon glyphicon-chevron-down',
-        handleIcon: 'glyphicon glyphicon-menu-hamburger',
-      },
-      pagination: {
-        infoClass: 'pull-left',
-        wrapperClass: 'vuetable-pagination pull-right',
-        activeClass: 'btn-primary',
-        disabledClass: 'disabled',
-        pageClass: 'btn btn-border',
-        linkClass: 'btn btn-border',
-        icons: {
-          first: '',
-          prev: '',
-          next: '',
-          last: '',
+      fields: [
+        {
+          name: "time",
+          title:
+            '<span class="orange glyphicon glyphicon-user"></span> Semester',
+          sortField: "time"
         },
+        "Module 1",
+        "Module 2",
+        "Module 3",
+        "Module 4",
+        "Module 5",
+        "Overload Modules",
+        "__slot:actions"
+      ],
+      sortOrder: [{ field: "time", direction: "asc" }],
+      css: {
+        table: {
+          tableClass: "table table-striped table-bordered table-hovered",
+          loadingClass: "loading",
+          ascendingIcon: "glyphicon glyphicon-chevron-up",
+          descendingIcon: "glyphicon glyphicon-chevron-down",
+          handleIcon: "glyphicon glyphicon-menu-hamburger"
+        },
+        pagination: {
+          infoClass: "pull-left",
+          wrapperClass: "vuetable-pagination pull-right",
+          activeClass: "btn-primary",
+          disabledClass: "disabled",
+          pageClass: "btn btn-border",
+          linkClass: "btn btn-border",
+          icons: {
+            first: "",
+            prev: "",
+            next: "",
+            last: ""
+          }
+        }
       }
-    }
     };
   },
   components: {
     sidebar,
-    'vuetable-pagination': Vuetable.VuetablePagination
+    "vuetable-pagination": Vuetable.VuetablePagination
   },
   methods: {
-      onPaginationData (paginationData) {
-      this.$refs.pagination.setPaginationData(paginationData)
+    onPaginationData(paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData);
     },
-    onChangePage (page) {
-      this.$refs.vuetable.changePage(page)
+    onChangePage(page) {
+      this.$refs.vuetable.changePage(page);
     },
-    editRow(rowData){
-      alert("You clicked edit on"+ JSON.stringify(rowData))
+    editRow(rowData) {
+      alert("You clicked edit on" + JSON.stringify(rowData));
     },
-    deleteRow(rowData){
-      alert("You clicked delete on"+ JSON.stringify(rowData))
+    deleteRow(rowData) {
+      alert("You clicked delete on" + JSON.stringify(rowData));
     },
     onLoading() {
-      console.log('loading... show your spinner here')
+      console.log("loading... show your spinner here");
     },
     onLoaded() {
-      console.log('loaded! .. hide your spinner here')
+      console.log("loaded! .. hide your spinner here");
     }
   },
   computed: {
-      /*httpOptions(){
+    /*httpOptions(){
     return {headers: {'Authorization': "my-token"}} //table props -> :http-options="httpOptions"
   },*/
   }
@@ -114,7 +120,7 @@ export default {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -127,6 +133,4 @@ export default {
 th.sortable {
   color: #ec971f;
 }
-
-
 </style>

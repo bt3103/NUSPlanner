@@ -6,6 +6,7 @@ import ProfileComponent from "@/views/profile_page.vue";
 import timetableComponent from "@/views/time_table.vue";
 import RecommendationComponent from "@/views/recommendation.vue";
 import WhatIfAnalysisComponent from "@/views/what_if_analysis.vue";
+import CreatePlanComponent from "@/views/create_plan.vue";
 
 Vue.use(VueRouter);
 
