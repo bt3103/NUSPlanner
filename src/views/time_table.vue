@@ -123,8 +123,7 @@ export default {
     };
   },
   components: {
-    sidebar,
-    WkPlan
+    sidebar
   },
   methods: {
     open(event) {
