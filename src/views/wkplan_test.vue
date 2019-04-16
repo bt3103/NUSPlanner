@@ -1,133 +1,86 @@
 <template>
-    <JqxScheduler :theme="'material'" ref="myScheduler"
-        :width="getWidth" :height="600" :source="dataAdapter" :date="date"  :view="'weekView'" :showLegend="true"
-        :appointmentDataFields="appointmentDataFields" :views="views"  :resources="resources" 
-    />
+  <v-layout>
+    <v-flex>
+      <v-sheet height="400">
+        <!-- now is normally calculated by itself, but to keep the calendar in this date range to view events -->
+        <v-calendar
+          ref="calendar"
+          :now="today"
+          :value="today"
+          color="primary"
+          type="week"
+        >
+          
+          <template v-slot:dayBody="{ date, timeToY, minutesToPixels }">
+            <template v-for="event in eventsMap[date]">
+              <!-- timed events -->
+              <div
+                v-if="event.time"
+                :key="event.title"
+                :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(event.duration) + 'px' }"
+                class="my-event with-time"
+                @click="open(event)"
+                v-html="event.title"
+              ></div>
+            </template>
+          </template>
+        </v-calendar>
+      </v-sheet>
+    </v-flex>
+  </v-layout>
 </template>
-
 <script>
-    import JqxScheduler from 'jqwidgets-scripts/jqwidgets-vue/vue_jqxscheduler.vue'
-    export default {
-        components: {
-            JqxScheduler
-        },
-        data: function () {
-            return {
-				getWidth: '90%',
-                date: new jqx.date(2016, 11, 23),
-                appointmentDataFields: 
-                {
-                    from: 'start',
-                    to: 'end',
-                    id: 'id',
-                    description: 'description',
-                    location: 'place',
-                    subject: 'subject',
-                    resourceId: 'calendar'
-                },
-                resources:
-                {
-                    colorScheme: 'scheme05',
-                    dataField: 'calendar',
-                    source: new jqx.dataAdapter(this.source)
-                },
-                views:
-                [
-                    { type: 'dayView', appointmentsRenderMode: 'exactTime' },
-                    { type: 'weekView', appointmentsRenderMode: 'exactTime' },
-                    { type: 'monthView', appointmentsRenderMode: 'exactTime' }
-                ]
-            }
-        },
-        beforeCreate: function () {
-            const generateAppointments =  function () {
-                const appointments = new Array();
-                const appointment1 = {
-                    id: 'id1',
-                    description: 'George brings projector for presentations.',
-                    location: '',
-                    subject: 'Quarterly Project Review Meeting',
-                    calendar: 'Room 1',
-                    start: new Date(2016, 10, 23, 9, 15, 0),
-                    end: new Date(2016, 10, 23, 16, 0, 0)
-                }
-                const appointment2 = {
-                    id: 'id2',
-                    description: '',
-                    location: '',
-                    subject: 'IT Group Mtg.',
-                    calendar: 'Room 2',
-                    start: new Date(2016, 10, 24, 10, 45, 0),
-                    end: new Date(2016, 10, 24, 15, 0, 0)
-                }
-                const appointment3 = {
-                    id: 'id3',
-                    description: '',
-                    location: '',
-                    subject: 'Course Social Media',
-                    calendar: 'Room 3',
-                    start: new Date(2016, 10, 27, 11, 30, 0),
-                    end: new Date(2016, 10, 27, 13, 0, 0)
-                }
-                const appointment4 = {
-                    id: 'id4',
-                    description: '',
-                    location: '',
-                    subject: 'New Projects Planning',
-                    calendar: 'Room 2',
-                    start: new Date(2016, 10, 23, 16, 15, 0),
-                    end: new Date(2016, 10, 26, 18, 0, 0)
-                }
-                const appointment5 = {
-                    id: 'id5',
-                    description: '',
-                    location: '',
-                    subject: 'Interview with James',
-                    calendar: 'Room 1',
-                    start: new Date(2016, 10, 25, 15, 45, 0),
-                    end: new Date(2016, 10, 25, 17, 0, 0)
-                }
-                const appointment6 = {
-                    id: 'id6',
-                    description: '',
-                    location: '',
-                    subject: 'Interview with Nancy',
-                    calendar: 'Room 4',
-                    start: new Date(2016, 10, 26, 14, 30, 0),
-                    end: new Date(2016, 10, 26, 16, 0, 0)
-                }
-                appointments.push(appointment1);
-                appointments.push(appointment2);
-                appointments.push(appointment3);
-                appointments.push(appointment4);
-                appointments.push(appointment5);
-                appointments.push(appointment6);
-                return appointments;
-            }
-            this.source =
-                {
-                    dataType: 'array',
-                    dataFields: [
-                        { name: 'id', type: 'string' },
-                        { name: 'description', type: 'string' },
-                        { name: 'location', type: 'string' },
-                        { name: 'subject', type: 'string' },
-                        { name: 'calendar', type: 'string' },
-                        { name: 'start', type: 'date' },
-                        { name: 'end', type: 'date' }
-                    ],
-                    id: 'id',
-                    localData: generateAppointments()
-                };
-            this.dataAdapter = new jqx.dataAdapter(this.source);
-        },
-        mounted: function () {
-            this.$refs.myScheduler.ensureAppointmentVisible('id1');    
+import db from "@/firebase";
+  export default {
+    firebase: {
+        modulelist: {
+         source: db.ref("wkplan")
         }
+    },
+    data: () => ({
+      today: '2019-04-16',
+      modulelist: []
+    }),
+    computed: {
+      // convert the list of events into a map of lists keyed by date
+      eventsMap () {
+        const map = {}
+        this.modulelist.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+        return map
+      }
+    },
+    mounted () {
+      this.$refs.calendar.scrollToTime('08:00')
+    },
+    methods: {
+      open (event) {
+        alert(event.title+"\n"+event.venue+'\n'+event.time)
+      }
     }
+  }
 </script>
+<style lang="stylus" scoped>
+  .my-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 2px;
+    background-color: #1867c0;
+    color: #ffffff;
+    border: 1px solid #1867c0;
+    font-size: 12px;
+    padding: 3px;
+    cursor: pointer;
+    margin-bottom: 1px;
+    left: 4px;
+    margin-right: 8px;
+    position: relative;
 
-<style>
-  
-   
+    &.with-time {
+      position: absolute;
+      right: 4px;
+      margin-right: 0px;
+    }
+  }
 </style>
+
