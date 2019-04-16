@@ -40,6 +40,7 @@ export default {
   methods: {
     logout: function()
     {
+      alert("You have successfully logout")
       router.push({name: 'login'})
     }
   }
