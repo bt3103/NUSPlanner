@@ -42,7 +42,7 @@
               :menu-props="{ auto: true }"
               :items="skills"
               label="Technical Skills Focus"
-              placeholder="Python Programming"
+              placeholder="No Plan"
               attach="dropdown"
             ></v-select>
             <v-btn block color="teal lighten-2" dark @click="isSubmitted()">Submit</v-btn>
@@ -54,15 +54,22 @@
         </v-layout>
       </v-container>
     </div>
+    <div class="studyplan_blank" v-show="submitted==0">
+    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=f3c61f92-d6bf-41ec-b6e3-86c142ecc69d" width="900px" height="500px" />
+    </div>
     <div class="studyplan" v-show="submitted==1">
-    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_1.PNG?alt=media&token=e2ce8915-01f0-456a-8d53-388e0aaec44f' width="700px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec.PNG?alt=media&token=bb6d0e62-c03c-4fed-aca7-08fa12f739da' width="900px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
-    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_2.PNG?alt=media&token=eb8998e0-1c6b-4be7-8eb7-090060941ea4' width="700px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_in4.PNG?alt=media&token=192d9567-33cf-449d-b71d-775ef354c278' width="900px" height="500px" />
     </div>
-    <div class="studyplan_blank" v-show="submitted==0">
-    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=29d0dfad-3735-4e13-9fc2-10011f19f8dd" width="700px" height="500px" />
+    <div class="studyplan" v-show="submitted==3">
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_nosep.PNG?alt=media&token=7acd4352-df56-4642-a88d-e20b9ac527fe' width="900px" height="500px" />
     </div>
+    <div class="studyplan" v-show="submitted==4">
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_nosep.PNG?alt=media&token=7acd4352-df56-4642-a88d-e20b9ac527fe' width="900px" height="500px" />
+    </div>
+    
   </div>
 </template>
 
@@ -78,7 +85,7 @@ export default {
   data() {
     return {
       runCreateMSG: "Create and view your own plan",
-      submitted: 0,
+      submitted: 1,
       e1: [],
       e2: [],
       e3: [],
@@ -87,23 +94,15 @@ export default {
       internship: [
         "Year 2 Sem 2",
         "Year 3 Sem 1",
-        "Year 3 Sem 2",
-        "Year 4 Sem 1"
+        "Year 3 Sem 2"
       ],
       sep: [
-        "Year 2 Sem 1",
-        "Year 2 Sem 2",
         "Year 3 Sem 1",
         "Year 3 Sem 2",
-        "Year 4 Sem 1",
         "Not Going"
       ],
       minors: [
-        "Business",
-        "Computer Science",
         "Economics",
-        "Math",
-        "Finance",
         "Statistics",
         "No Plan"
       ],
@@ -114,18 +113,23 @@ export default {
       ],
       skills: [
         "Python Programming",
-        "Statistical Modelling",
-        "Business Acumen"
+        "No Plan"
       ]
     };
   },
   methods: {
     isSubmitted: function()
     {
-      if(this.e1=="Year 3 Sem 1" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" 
-      && this.e4 =="Financial Analytics" && this.e5 == "Business Acumen"){
+      if(this.e1=="Year 3 Sem 1" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" ){
         this.submitted = 1;
-      }else{
+      } else if(this.e1=="Year 2 Sem 2" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" ){
+        this.submitted = 2;
+      }else if(this.e1=="Year 2 Sem 2" && this.e2 == "No Plan" && this.e3 =="Economics" ){
+        this.submitted =3;
+      }else if(this.e1=="Year 3 Sem 2" && this.e2 == "Year 2 Sem 2" && this.e3 =="Statistics" ){
+        this.submitted =4;
+      }
+      else{
         alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan");
         this.submitted = 0;
       }
