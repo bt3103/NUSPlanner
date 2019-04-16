@@ -5,6 +5,7 @@
       <v-data-table
         :headers="headers"
         :items="modules"
+        :rows-per-page-items=5
       >
         <template v-slot:items="props">
           <td>
@@ -127,11 +128,48 @@
               </template>
             </v-edit-dialog>
           </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.overloadmods"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.overloadmods }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.overloadmods"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
         </template>
       </v-data-table>
+      <v-snackbar v-model="snack" :timeout="3000" :color="modColor">
+      {{ modText }}
+      <v-btn flat @click="mod = false">Close</v-btn>
+    </v-snackbar>
       <v-btn v-model="fab" color="teal lighten-2" :title="msg" dark fab @click="back()">
         <v-icon>keyboard_backspace</v-icon>
       </v-btn>
+      <v-btn v-model="fab" color="teal lighten-2" :title="msg2" dark fab @click="check()">
+        <v-icon>check_circle</v-icon>
+      </v-btn>
+      <v-flex v-if="show">
+        <v-alert
+              :value="!fail"
+              color="green"
+            >Congratulations! All requirements have been met.</v-alert>
+            <v-alert
+              :value="fail"
+              color="orange"
+            >Sorry. You have not met all graduation requirements.</v-alert>
+          </v-flex>
     </div>
 
     <!-- <v-modbar v-model="mod" :timeout="3000" :color="modColor">
@@ -153,6 +191,9 @@ export default {
   data () {
       return {
         msg: "Back to Study Plan",
+        msg2:"Check for graduation",
+        fail:false,
+        show:false,
         mod: false,
         modColor: '',
         modText: '',
@@ -173,60 +214,76 @@ export default {
         ],
         modules: [
           {
-            semester: 'Frozen Yogurt',
-            module1: 159,
-            module2: 6.0,
-            module3: 24,
-            module4: 4.0,
-            module5: '1%'
+            semester: 1,
+            module1: "BT1101",
+            module2: "CS1010S",
+            module3: 'EC2101',
+            module4: 'GEH1001',
+            module5: 'BT2101',
+            overloadmods: 'GES1002'
           },
           {
-            semester: 'Ice cream sandwich',
-            module1: 237,
-            module2: 9.0,
-            module3: 37,
-            module4: 4.3,
-            module5: '1%'
+            semester: 2,
+            module1: 'IS1103',
+            module2: 'MA1521',
+            module3: 'CS2030',
+            module4: 'IS1103',
+            module5: 'URL',
+            overloadmods: 'NA'
           },
           {
-            semester: 'Eclair',
-            module1: 262,
-            module2: 16.0,
-            module3: 23,
-            module4: 6.0,
-            module5: '7%'
+            semester: 3,
+            module1: 'MKT1705X',
+            module2: 'BT2102',
+            module3: 'MA1311',
+            module4: 'URL',
+            module5: 'IS2101',
+            overloadmods: 'NA'
           },
           {
-            semester: 'Cupcake',
-            module1: 305,
-            module2: 3.7,
-            module3: 67,
-            module4: 4.3,
-            module5: '8%'
+            semester: 4,
+            module1: 'ST2334',
+            module2: 'BT3102',
+            module3: 'EC1301',
+            module4: 'CS2040',
+            module5: 'URL',
+            overloadmods: 'NA'
           },
           {
-            semester: 'Gingerbread',
-            module1: 356,
-            module2: 16.0,
-            module3: 49,
-            module4: 3.9,
-            module5: '16%'
+            semester: 5,
+            module1: 'BT3103',
+            module2: 'IS3103',
+            module3: 'Internship',
+            module4: 'Internship',
+            module5: 'Internship',
+            overloadmods: 'NA'
           },
           {
-            semester: 'Jelly bean',
-            module1: 375,
-            module2: 0.0,
-            module3: 94,
-            module4: 0.0,
-            module5: '0%'
+            semester: 6,
+            module1: 'SEP',
+            module2: 'SEP',
+            module3: 'SEP',
+            module4: 'SEP',
+            module5: 'SEP',
+            overloadmods: 'NA'
           },
           {
-            semester: 'Lollipop',
-            module1: 392,
-            module2: 0.2,
-            module3: 98,
-            module4: 0,
-            module5: '2%'
+            semester: 7,
+            module1: 'BT4103',
+            module2: 'BT4016',
+            module3: 'BT4012',
+            module4: 'BT4240',
+            module5: 'BT4101',
+            overloadmods: 'NA'
+          },
+          {
+            semester: 8,
+            module1: 'BT4101',
+            module2: 'BT4101',
+            module3: 'BT4101',
+            module4: 'BT4101',
+            module5: 'NA',
+            overloadmods: 'NA'
           }
         ]
       }
@@ -252,6 +309,27 @@ export default {
       },
       back: function(){
         router.push({name: 'four_year_plan'})
+      },
+      check: function(){
+        this.fail=false;
+        if(this.modules.length==8){
+          var i;
+          var m;
+          var count=0;
+          for(i = 0; i < 8; i++){
+            for(m = 0; i < 5; i++){
+              if(this.modules[i][m]=='NA'){
+              count++;
+              }
+            }
+            if(count >8){
+              this.fail=true;
+            }
+          }
+        }else{
+          this.fail=true;
+        }
+        this.show=true;
       }
     }
   }
