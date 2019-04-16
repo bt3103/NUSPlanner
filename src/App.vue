@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <div class="header">
+    <div v-if="authenticated == false" class="header">
       <page-header/>
+    </div>
+    <div v-if="authenticated == true && logout==false" class="header">
+      <page-header2/>
     </div>
     <!-- <div id="nav">
       <router-link v-if="authenticated" to="/login" v-on:click.native="Logout();" replace>Logout</router-link>
@@ -17,12 +20,14 @@
 
 <script>
 import PageHeader from "@/components/Header_login.vue";
+import PageHeader2 from "@/components/Header.vue"
 import PageFooter from "@/components/Footer.vue";
 
 export default {
   name: "App",
   components: {
-    PageHeader
+    PageHeader,
+    PageHeader2
   },
   data() {
     return {
