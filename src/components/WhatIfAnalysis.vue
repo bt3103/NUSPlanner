@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div :style="{ 'padding-left': '230px', width: '95%' }" >
     <div class="text-xs-center">
-      <v-container fluid>
-        <v-layout row>
+      <v-container fluid >
+        <v-btn block @click='clickProgress'>Current Progress ({{progressMessage}})</v-btn>
+        <v-layout row v-if='progressShown'>
           <v-flex xs4 v-for="reqtype of byModuleTypeProgress" :key="type">
             {{ reqtype.type }}
             <br>
@@ -17,11 +18,86 @@
           </v-flex>
         </v-layout>
       </v-container>
-    </div>
-    <div>
+      </div>
+      <div>
       <v-container>
+        <v-layout>
+          <v-flex xs12>
+        <v-btn block @click="runWhatIf">
+          Click To Run What-If &emsp; 
+        </v-btn>
+        </v-flex>
+        </v-layout>
+        <v-layout v-if='showWhatIf'>
+          <v-flex v-if="showWhatIf">
+            <v-btn block
+              v-if="graduationStatisfied"
+              color="green"
+              @click='clickToExpandWhatIf'
+            >Congratulations! All requirements have been met. {{message}}</v-btn>
+            <v-btn block
+              v-if="!graduationStatisfied"
+              color="orange"
+              @click='clickToExpandWhatIf'
+            >Sorry. You have not met all graduation requirements.{{message}}</v-btn>
+          </v-flex>
+          </v-layout>
+          <v-layout row wrap v-if='detailsExpanded'>
+          <v-flex xs4 pa-1>
+            <v-card >
+              <v-card-title primary-title>
+                Programme Requirements
+                </v-card-title>
+                <v-card-text>
+                  <div v-for='i of program'>
+                    <div v-if='requirementsSatisfaction[i]["satisfied"]==true'>
+                      <v-icon color='green'>far fa-check-circle</v-icon> {{i}}
+                      </div>
+                      <div v-else>
+                        <v-icon color='red'>far fa-times-circle</v-icon> {{i}}, {{requirementsSatisfaction[i]['needed']}} more MCs needed
+                        </div>
+                    </div>
+                  </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs4 pa-1>
+            <v-card >
+              <v-card-title primary-title>
+                University Level Requirements
+                </v-card-title>
+                <v-card-text>
+                  <div v-for="i of ulr">
+                    <div v-if='requirementsSatisfaction[i]["satisfied"]==true'>
+                      <v-icon color='green'>far fa-check-circle</v-icon> {{i}}
+                      </div>
+                      <div v-else>
+                        <v-icon color='red'>far fa-times-circle</v-icon> {{i}}, {{requirementsSatisfaction[i]['needed']}} more MCs needed
+                        </div>
+                    </div>
+                  </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs4 pa-1>
+            <v-card >
+              <v-card-title primary-title>
+                Overall Requirements
+                </v-card-title>
+                <v-card-text>
+                  <div v-for='i of overall'>
+                    <div v-if='requirementsSatisfaction[i]["satisfied"]==true'>
+                      <v-icon color='green'>far fa-check-circle</v-icon> {{i}}
+                      </div>
+                      <div v-else>
+                        <v-icon color='red'>far fa-times-circle</v-icon> {{i}}, {{requirementsSatisfaction[i]['needed']}} more MCs needed
+                        </div>
+                    </div>
+                  </v-card-text>
+            </v-card>
+          </v-flex>
+          </v-layout>
         <v-layout row wrap>
-          <v-flex xs6>
+          
+          <v-flex xs6 pa-1>
             <v-card>
               <v-card-title>Table of All Modules
                 <v-spacer></v-spacer>
@@ -50,7 +126,7 @@
               </v-data-table>
             </v-card>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs6 pa-1>
             <v-card>
               <v-card-title>Table of Selected Modules
                 <v-spacer></v-spacer>
@@ -86,7 +162,7 @@
             </v-card>
           </v-flex>
           <v-flex xs10 offset-xs1></v-flex>
-          <v-fab-transition>
+<!--           <v-fab-transition>
             <v-btn
               v-show="!hidden"
               color="pink"
@@ -98,19 +174,10 @@
               :title="runWhatIfMSG"
               @click="runWhatIf"
             >
-              <v-icon>check_circle</v-icon>
+              <v-icon>far fa-play-circle</v-icon>
             </v-btn>
-          </v-fab-transition>
-          <v-flex v-if="showWhatIf">
-            <v-alert
-              :value="graduationStatisfied"
-              color="green"
-            >Congratulations! All requirements have been met.</v-alert>
-            <v-alert
-              :value="!graduationStatisfied"
-              color="orange"
-            >Sorry. You have not met all graduation requirements.</v-alert>
-          </v-flex>
+          </v-fab-transition> -->
+
         </v-layout>
       </v-container>
     </div>
@@ -131,10 +198,17 @@ export default {
       graduationStatus: "Unsatisfied",
       graduationStatisfied: false,
       expectedGrade: 0,
+      progressMessage:'Click to hide',
+      progressShown:true,
       selected: [],
+      message:' Click to see details.',
       addModuleMSG: "Double Click to Add Module",
       removeModuleMSG: "Double Click to Remove Module",
       runWhatIfMSG: "Click to run What-If Analysis",
+      ulr:['GEH', 'GES', 'GER', 'GET', 'GEQ'],
+      program:['Core','Internship', 'PE Group A', 'PE Group B', 'PE Level 4', 'PE Total'],
+      overall:['Overall'],
+      detailsExpanded:false,
       whatIf: [
         {
           moduleList: []
@@ -147,7 +221,7 @@ export default {
         { text: "Module Type", value: "moduleType" },
         { text: "MC", value: "modularCredit" }
       ],
-      fab: false
+      requirementsSatisfaction:[],
     };
   },
   firebase: {
@@ -164,7 +238,7 @@ export default {
     },
     nusmodules: {
       source: db.ref("nusModules")
-    }
+    },
   },
   computed: {
     byModuleTypeProgress() {
@@ -186,10 +260,17 @@ export default {
     },
     allModules() {
       var all = [];
-      var allMod = this.nusmodules;
-      var bzaMod = this.bzamodules;
-      var isbza = false;
+      var bzaMod = [];
+      var allMod = [];
+      for(var mod of this.nusmodules){
+        allMod.push(mod)
+      }
+      for(var mod of this.bzamodules){
+        bzaMod.push(mod)
+      }
+      
       for (var module of allMod) {
+        var isbza = false;
         for (var bzaModule of bzaMod) {
           if (module.moduleCode == bzaModule.moduleCode) {
             all.push(bzaModule);
@@ -217,13 +298,48 @@ export default {
             all.push(newMod);
           }
         }
-        isbza = false;
       }
       console.log(all[10]);
+      console.log(this.bzamodules)
       return all;
+    },
+    simplifiedBAMod(){
+      var data = {}
+      for(var mod of this.bzamodules){
+        var modCode = mod.moduleCode
+        var modType = mod.moduleType
+        var pegroup = mod.PEGroup
+        var mc = mod.modularCredit
+        if(pegroup){
+          data[modCode]=['PE'+pegroup, mc]
+        }else if(modType == 'Core Modules'){
+          data[modCode]=['Core',mc]
+        }else if(modType == 'Internship Requirements'){
+          data[modCode]=['Internship',mc]
+        }
+      }
+      return data
     }
   },
   methods: {
+    clickToExpandWhatIf(){
+      if(this.detailsExpanded){
+        this.detailsExpanded = false
+        this.message = ' Click to see details.'
+      }else{
+        this.detailsExpanded=true
+        this.message=' Click to hide details.'
+      }
+    },
+    clickProgress(){
+      if(this.progressShown){
+        this.progressShown = false;
+        this.progressMessage='Click to show'
+      }else{
+        this.progressShown = true;
+        this.progressMessage = 'Click to hide'
+      }
+    },
     addModule(moduleObj) {
       console.log(moduleObj.moduleCode);
       console.log(this.whatIf.moduleList);
@@ -239,7 +355,7 @@ export default {
           this.whatIf.moduleList.push({
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredit,
+            modularCredit: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           });
@@ -251,7 +367,7 @@ export default {
           {
             moduleCode: moduleObj.moduleCode,
             moduleType: moduleObj.moduleType,
-            MC: moduleObj.modularCredit,
+            modularCredit: moduleObj.modularCredit,
             PEGroup: moduleObj.PEGroup,
             expectedGrade: 5
           }
@@ -299,6 +415,10 @@ export default {
       //2. 1 GEM, 1 GER, 1 GEQ, 1 GES, 1 GEH
       //3. 12 MC internship / dissertation
       //4. at least 2 PE.A, at least 2 PE.B, at least 5 modules level 4
+      console.log(this.bzamodules)
+      if(this.requirementsSatisfaction){
+        this.requirementsSatisfaction = []
+      }
       var requirements = {
         GES: 4,
         GEH: 4,
@@ -310,7 +430,7 @@ export default {
         PEB: 8,
         PE4: 20,
         PE: 24,
-        internship: 12,
+        Internship: 12,
         total: 160
       };
       var finished = {
@@ -324,53 +444,96 @@ export default {
         PEB: 0,
         PE4: 0,
         PE: 0,
-        internship: 0,
+        Internship: 0,
         total: 0
       };
-      function getModule(moduleCode) {
-        var module = [];
-        for (var mod of this.bzamodules) {
+      
+      this.showWhatIf = true;
+      var currModules = []
+      for(var i of this.person.modulesTaken){
+          currModules.push(i)
+      }
+      console.log(currModules)
+      console.log('retrieved current modules')
+      console.log(this.whatIf.moduleList)
+      if(this.whatIf.moduleList){
+        for(var mod of this.whatIf.moduleList){
+          console.log(mod)
+        currModules.push(mod);}}
+      
+      // check each of the modules
+      console.log('pushed whatif modules')
+      console.log(currModules)
+      function getModule(moduleCode, moduleList) {
+        console.log('get module')
+        var module = '';
+        for (var mod of moduleList) {
           if ((mod.moduleCode = moduleCode)) {
             module = mod;
+            
           }
         }
         return module;
       }
-      this.showWhatIf = true;
-      var currModules = person.modulesTaken;
-      currModules = currModules.push(this.whatIf.moduleList);
-      // check each of the modules
       for (var currMod of currModules) {
-        var module = getModule(currMod.moduleCode);
-        var currType = module.moduleType;
-        var PEGroup = module.PEGroup;
-        var MC = module.modularCredit;
+        //var module = getModule(currMod.moduleCode, this.bzamodules);
+        //console.log(module)
+        var currModCode = currMod.moduleCode
+        var currType = ''
+        if(currModCode in this.simplifiedBAMod){
+          currType = this.simplifiedBAMod[currModCode][0];
+          console.log(currType)
+          var MC=this.simplifiedBAMod[currModCode][1];
+        }else{
+          var MC=currMod.modularCredit
+        }
         var modGroup = currMod.moduleCode.slice(0, 3);
         var modLevel = currMod.moduleCode.slice(3, 4);
-        if (currType == "University Requirements") {
+        if (modGroup.slice(0,2) == 'GE') {
           finished[modGroup] += MC;
-        } else if (currType == "Programme Electives") {
-          if (PEGroup == "A") {
-            finished.PEA += MC;
-          } else if (PEGroup == "B") {
-            finished.PEB += MC;
-          } else {
-            finished.PEC += MC;
-          }
-          if (modLevel == "4") {
-            finished.PE4 += MC;
-          }
-          finished.PE += MC;
-        } else if (currType == "Core Modules") {
-          finished.Core += MC;
-        } else {
-          finished.internship += MC;
+        } else if (currType) {
+          finished[currType] += MC;
+          if (currType.slice(0,2) == 'PE'){
+            finished.PE += MC;
+            if(modLevel == "4"){
+              finished.PE4 += MC;
+            }
+          } 
         }
         finished.total += MC;
       }
+      console.log('updating done')
+      console.log(finished)
+
+      for(var key in requirements){
+        console.log(requirements[key] + ' '+finished[key])
+        var temp=''
+        if(key == 'PEA'){
+          temp = 'PE Group A'
+        }else if(key == 'PEB'){
+          temp = 'PE Group B'
+        }else if(key == 'PE4'){
+          temp = 'PE Level 4'
+        }else if(key == 'PE'){
+          temp = 'PE Total'
+        }else if(key=='total'){
+          temp = 'Overall'
+        }else{
+          temp = key
+        }
+        if( (requirements[key] <= finished[key])){
+          this.requirementsSatisfaction[temp]={'satisfied':true}
+        }else{
+          var needed = requirements[key] - finished[key]
+          this.requirementsSatisfaction[temp]={'satisfied':false,'needed': needed}
+        }
+      }
+      console.log('has taken')
+      console.log(this.requirementsSatisfaction)
+
       var allFinished = false;
       for (var cat of finished) {
-        if (finished.cat == required.cat) {
+        if (finished[cat] == requrequirements[cat]) {
           allFinished = true;
         } else {
           allFinished = false;
@@ -383,9 +546,6 @@ export default {
       }
       this.graduationStatisfied = allFinished;
     },
-    checkfirebase() {
-      console.log(this.bzamodules);
-    }
   }
 };
 </script>
