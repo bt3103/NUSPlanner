@@ -6,6 +6,7 @@ import ProfileComponent from "@/views/profile_page.vue";
 import timetableComponent from "@/views/time_table.vue";
 import RecommendationComponent from "@/views/recommendation.vue";
 import WhatIfAnalysisComponent from "@/views/what_if_analysis.vue";
+import CreatePlanComponent from "@/views/create_plan.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,11 @@ export default new VueRouter({
       path: "@/views/what_if_analysis",
       name: "what_if_analysis",
       component: WhatIfAnalysisComponent
+    },
+    {
+      path: "@/views/create_plan",
+      name: "create_plan",
+      component: CreatePlanComponent
     }
   ]
 });
