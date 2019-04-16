@@ -45,9 +45,11 @@
               placeholder="Python Programming"
               attach="dropdown"
             ></v-select>
-            <v-btn block color="secondary" dark @click="isSubmitted()">Submit</v-btn>
-            <v-btn block color="secondary" dark @click="toCreate()">Create</v-btn>
-            <v-btn block color="secondary" dark @click="isReset()">Reset</v-btn>
+            <v-btn block color="teal lighten-2" dark @click="isSubmitted()">Submit</v-btn>
+            <v-btn block color="teal lighten-2" dark @click="isReset()">Reset</v-btn>
+            <v-spacer></v-spacer>
+          
+            <v-btn block color="teal lighten-2" dark :title="runCreateMSG" @click="toCreate()">View</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -75,6 +77,7 @@ export default {
   },
   data() {
     return {
+      runCreateMSG: "Create and view your own plan",
       submitted: 0,
       e1: [],
       e2: [],

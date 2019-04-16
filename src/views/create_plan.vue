@@ -1,134 +1,134 @@
 <template>
   <div>
     <div class="sidebar"><sidebar /></div>
-    <div>
-    <v-data-table
-      :headers="headers"
-      :items="modules"
-    >
-      <template v-slot:items="props">
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.semester"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.semster }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.semster"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.module1"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.module1 }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.module1"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.module2"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.module2 }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.module2"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.module3"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.module3 }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.module3"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.module4"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.module4 }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.module4"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-        <td>
-          <v-edit-dialog
-            :return-value.sync="props.item.module5"
-            lazy
-            @save="save"
-            @cancel="cancel"
-            @open="open"
-            @close="close"
-          > {{ props.item.module5 }}
-            <template v-slot:input>
-              <v-text-field
-                v-model="props.item.module5"
-                :rules="[max25chars]"
-                label="Edit"
-                single-line
-                counter
-              ></v-text-field>
-            </template>
-          </v-edit-dialog>
-        </td>
-      </template>
-    </v-data-table>
+    <div class='selfplan'>
+      <v-data-table
+        :headers="headers"
+        :items="modules"
+      >
+        <template v-slot:items="props">
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.semester"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.semester }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.semster"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.module1"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.module1 }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.module1"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.module2"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.module2 }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.module2"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.module3"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.module3 }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.module3"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.module4"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.module4 }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.module4"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+          <td>
+            <v-edit-dialog
+              :return-value.sync="props.item.module5"
+              lazy
+              @save="save"
+              @cancel="cancel"
+              @open="open"
+              @close="close"
+            > {{ props.item.module5 }}
+              <template v-slot:input>
+                <v-text-field
+                  v-model="props.item.module5"
+                  :rules="[max25chars]"
+                  label="Edit"
+                  single-line
+                  counter
+                ></v-text-field>
+              </template>
+            </v-edit-dialog>
+          </td>
+        </template>
+      </v-data-table>
     </div>
 
     <!-- <v-modbar v-model="mod" :timeout="3000" :color="modColor">
@@ -140,6 +140,7 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
+import router from '@/router/index.js';
 
 export default {
   name: "create_plan",
@@ -168,7 +169,7 @@ export default {
         ],
         modules: [
           {
-            name: 'Frozen Yogurt',
+            semester: 1,
             module1: 159,
             module2: 6.0,
             module3: 24,
@@ -176,7 +177,7 @@ export default {
             module5: '1%'
           },
           {
-            name: 'Ice cream sandwich',
+            semester: 2,
             module1: 237,
             module2: 9.0,
             module3: 37,
@@ -184,7 +185,7 @@ export default {
             module5: '1%'
           },
           {
-            name: 'Eclair',
+            semester: 3,
             module1: 262,
             module2: 16.0,
             module3: 23,
@@ -192,7 +193,7 @@ export default {
             module5: '7%'
           },
           {
-            name: 'Cupcake',
+            semester: 4,
             module1: 305,
             module2: 3.7,
             module3: 67,
@@ -200,7 +201,7 @@ export default {
             module5: '8%'
           },
           {
-            name: 'Gingerbread',
+            semester: 5,
             module1: 356,
             module2: 16.0,
             module3: 49,
@@ -208,7 +209,7 @@ export default {
             module5: '16%'
           },
           {
-            name: 'Jelly bean',
+            semester: 6,
             module1: 375,
             module2: 0.0,
             module3: 94,
@@ -216,7 +217,15 @@ export default {
             module5: '0%'
           },
           {
-            name: 'Lollipop',
+            semester: 7,
+            module1: 392,
+            module2: 0.2,
+            module3: 98,
+            module4: 0,
+            module5: '2%'
+          },
+          {
+            semester: 8,
             module1: 392,
             module2: 0.2,
             module3: 98,
@@ -255,5 +264,10 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   width: 20%;
   float: left;
+}
+.selfplan {
+  margin:auto;
+  width: 70%;
+  float:left;
 }
 </style>
