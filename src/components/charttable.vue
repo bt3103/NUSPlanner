@@ -40,6 +40,7 @@
 <script>
 export default {
   name: "charttable",
+  props:['proplabels'],
   data() {
     return{
     disabled: true
