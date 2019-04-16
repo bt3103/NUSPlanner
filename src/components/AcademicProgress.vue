@@ -83,57 +83,40 @@
         <v-divider class="my-2"></v-divider>
         <v-icon class="mr-2" small>mdi-clock</v-icon>
         <v-card-text class="pt-0">
-          <div class="subheading font-weight-light grey--text">Current CAP
-            <div class="container">
-              <div
+          <v-container>
+            <v-layout>
+              <v-flex xs6>
+                <div class="subheading font-weight-light grey--text">Current CAP
+                  <div class="container">
+                    <!--               <div
                 :style="{
                   'background-color': someRandomColor[1],
                   width: (currentCAP / 5.0) * 100 + '%'
                 }"
-              >{{ currentCAP }}/5.0</div>
-            </div>
-          </div>
-          <v-divider class="my-2"></v-divider>
-          <v-icon class="mr-2" small>mdi-clock</v-icon>
-          <div class="subheading font-weight-light grey--text">Degree Progress
-            <div class="container">
-              <div
-                :style="{
-                  'background-color': someRandomColor[0],
-                  width: (totalMCEarned / totalMCRequired) * 100 + '%'
-                }"
-              >{{ totalMCEarned }}/{{ totalMCRequired }} Modular Credits</div>
-            </div>
-          </div>
+                    >{{ currentCAP }}/5.0</div>-->
+                    <div>{{currentCAP}}/5.0</div>
+                  </div>
+                </div>
+              </v-flex>
+              <v-divider class="mx-3" inset vertical></v-divider>
+              <v-flex xs6>
+                <div class="subheading font-weight-light grey--text">Degree Progress
+                  <div class="container">
+                    <div>{{ totalMCEarned }}/{{ totalMCRequired }} Modular Credits</div>
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-card-text>
       </v-card>
       <br>
       <br>
-
-      <!--<button class="collapsible" @click="clickRequirements">Requirements Breakdown</button>
-      <div class="text-xs-center" v-if="showRequirements">
-        <v-container fluid>
-          <v-layout row>
-            <v-flex xs4 v-for="reqtype of byModuleTypeProgress" :key="type">
-              {{ reqtype.type }}
-              <br>
-              <br>
-              <v-progress-circular
-                :rotate="360"
-                :size="100"
-                :width="15"
-                :value="reqtype.percentage"
-                color="teal"
-              >{{ reqtype.earned }}/{{ reqtype.number }} MC</v-progress-circular>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </div> -->
       <br>
       <br>
       <div class="moduleInfo">
         <button class="collapsible" @click="clickGrades">Grades Breakdown</button>
-        <v-container fluid>
+        <v-card>
           <v-data-table
             :headers="moduleCats"
             :items="person.modulesTaken"
@@ -143,91 +126,14 @@
             <template slot="items" slot-scope="props">
               <td>{{ props.item.moduleCode }}</td>
               <td class="text-xs-right">{{ props.item.moduleName }}</td>
-              <td class="text-xs-right">{{ props.item.modularCredits }}</td>
+              <td class="text-xs-right">{{ props.item.modularCredit }}</td>
               <td class="text-xs-right">{{ props.item.gradeEarned }}</td>
               <td class="text-xs-right">{{ props.item.whetherSU }}</td>
               <td class="text-xs-right">{{ props.item.moduleType }}</td>
               <td class="text-xs-right">{{ props.item.semesterTaken }}</td>
             </template>
           </v-data-table>
-        </v-container>
-        <!--<button class="collapsible" @click="clickWhatIf">What-If Analysis</button>
-        <div v-if="showWhatIf">
-          <span class="form-style-2-heading">Choose Modules for What-If Analysis</span>
-          <v-container fluid grid-list-md text-xs-center>
-            <v-layout row wrap>
-              <v-flex xs6>
-                <v-text-field
-                  v-model="whatIf.newModuleCode"
-                  label="Enter Module Code"
-                  placeholder="BT1101"
-                  box
-                  @keyup.enter="addModule"
-                ></v-text-field>
-                <v-select
-                  v-model="whatIf.newModuleExpectedGrade"
-                  :menu-props="{ auto: true }"
-                  :items="[
-                    'A+',
-                    'A',
-                    'A-',
-                    'B+',
-                    'B',
-                    'B-',
-                    'C+',
-                    'C',
-                    'D',
-                    'E'
-                  ]"
-                  label="Choose an Expected Grade"
-                  placeholder="A+"
-                  attach="dropdown"
-                  box
-                  @keyup.enter="addModule"
-                ></v-select>
-
-                <v-btn fab dark color="#42C3FF" @click="addModule();">
-                  <v-icon dark>add</v-icon>
-                </v-btn>
-                <v-btn fab dark color="#5ADFFF" @click="removeModule();">
-                  <v-icon dark>remove</v-icon>
-                </v-btn>
-                <v-btn fab dark color="#9CFFED" @click="runWhatIf">
-                  <v-icon dark>check_circle</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex xs6>
-                <v-data-table
-                  v-model="selected"
-                  :headers="[
-                    { text: 'Module Code', value: 'moduleCode' },
-                    { text: 'Expected Grade', value: 'expectedGrade' }
-                  ]"
-                  :items="whatIf.moduleList"
-                  select-all
-                  class="elevation-1"
-                >
-                  <template slot="items" slot-scope="props">
-                    <tr :active="props.selected" @click="props.selected = !props.selected;">
-                      <td>
-                        <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
-                      </td>
-                      <td>{{ props.item.moduleCode }}</td>
-                      <td class="text-xs-right">{{ props.item.expectedGrade }}</td>
-                    </tr>
-                  </template>
-                </v-data-table>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <v-container fluid>
-            <p v-if="whatIfClicked">Graduation Requirements:
-              <b>{{ graduationStatus }}</b>
-              <br>Expected Grade:
-              <b>{{ expectedGrade }}</b>
-            </p>
-          </v-container>
-        </div>-->
+        </v-card>
       </div>
     </div>
   </div>
@@ -237,7 +143,7 @@
 import chart from "/function/chart.js";
 import SortedTablePlugin from "vue-sorted-table";
 import Vue from "vue";
-import db from '@/firebase'
+import db from "@/firebase";
 Vue.use(SortedTablePlugin);
 
 export default {
@@ -250,7 +156,7 @@ export default {
       moduleCats: [
         { text: "Module Code", value: "moduleCode" },
         { text: "Module Name", value: "moduleName" },
-        { text: "Modular Credits", value: "modularCredits" },
+        { text: "Modular Credits", value: "modularCredit" },
         { text: "Grade Obtained", value: "gradeEarned" },
         { text: "S/U Exercised?", value: "whetherSU" },
         { text: "Module Type", value: "moduleType" },
@@ -268,13 +174,13 @@ export default {
     };
   },
   firebase: {
-    person:{
-      source: db.ref('A0123456B'),
-      asObject:true
+    person: {
+      source: db.ref("A0123456B"),
+      asObject: true
     },
-    degreq:{
-      source:db.ref('DegreeRequirements'),
-      asObject:true
+    degreq: {
+      source: db.ref("DegreeRequirements"),
+      asObject: true
     }
   },
   props: ["userName"],
@@ -284,15 +190,15 @@ export default {
       for (var item in this.degreq.BusinessAnalytics) {
         count += this.degreq.BusinessAnalytics[item].number;
       }
-      console.log('total MC required '+count);
+      console.log("total MC required " + count);
       return count;
     },
     totalMCEarned() {
       var count = 0.0;
       for (var item in this.person.modulesTaken) {
-        count += this.person.modulesTaken[item].modularCredits;
+        count += this.person.modulesTaken[item].modularCredit;
       }
-      console.log('MC taken '+count);
+      console.log("MC taken " + count);
       return count;
     },
     currentCAP() {
@@ -302,9 +208,9 @@ export default {
         var currMod = this.person.modulesTaken[item];
         if (currMod.whetherSU != "Y") {
           count +=
-            this.person.modulesTaken[item].modularCredits *
+            this.person.modulesTaken[item].modularCredit *
             this.person.modulesTaken[item].gradeEarned;
-          mc += this.person.modulesTaken[item].modularCredits;
+          mc += this.person.modulesTaken[item].modularCredit;
         }
       }
       var cap = count / mc;
@@ -319,7 +225,7 @@ export default {
         for (var id in this.modulesTaken) {
           var currMod = this.modulesTaken[id];
           if (currMod.moduleType == currType) {
-            count += currMod.modularCredits;
+            count += currMod.modularCredit;
           }
         }
         dic[index].earned = count;
@@ -343,7 +249,7 @@ export default {
         var currMod = this.person.modulesTaken[index];
         var currSem = currMod.semesterTaken;
         var currCAP = currMod.gradeEarned;
-        var currMC = currMod.modularCredits;
+        var currMC = currMod.modularCredit;
         res[currSem].push([currCAP, currMC]);
       }
       console.log(res);
@@ -434,7 +340,7 @@ export default {
         this.moduleTableSortKey == sortKey;
         this.moduleTableSortOrder = "asc";
       }
-    },
+    }
   },
   components: {
     chart
