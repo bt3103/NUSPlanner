@@ -3,9 +3,9 @@
     <div class="header">
       <page-header/>
     </div>
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link v-if="authenticated" to="/login" v-on:click.native="Logout();" replace>Logout</router-link>
-    </div>
+    </div> -->
     <div class="quotes" v-show="logout"><img src=./assets/quotes.jpg width=100% height=100% /></div>
 
     <router-view @authenticated="setAuthenticated"/>
@@ -18,6 +18,7 @@
 <script>
 import PageHeader from "@/components/Header.vue";
 import PageFooter from "@/components/Footer.vue";
+
 export default {
   name: "App",
   components: {

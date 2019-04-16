@@ -33,7 +33,6 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import sidebar from "@/components/Sidebar.vue";
 import VueTable, {
   VuetablePagination,
   VuetablePaginationInfo

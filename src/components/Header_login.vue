@@ -16,7 +16,6 @@
 
 
       <v-spacer></v-spacer>
-      <v-btn flat @click="logout()">Logout</v-btn>
 <!-- 
       <v-btn icon>
         <v-icon>more_vert</v-icon>
@@ -31,17 +30,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import router from '@/router/index.js';
-
-export default {
-  name: "header",
-  methods: {
-    logout: function()
-    {
-      router.push({name: 'login'})
-    }
-  }
-};
-</script>
