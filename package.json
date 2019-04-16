@@ -27,6 +27,7 @@
     "vue-sorted-table": "1.0.1",
     "vuefire": "1.4.5",
     "vuesax": "3.8.16",
+    "vuetable-2": "1.7.5",
     "vuetify": "^1.5.2",
     "webpack-dev-server": ">=3.1.11"
   },
