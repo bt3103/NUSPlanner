@@ -85,7 +85,6 @@
 
 <script>
 import sidebar from "@/components/Sidebar.vue";
-import WkPlan from "@/views/wkplan_test.vue";
 import db from "@/firebase";
 
 export default {
