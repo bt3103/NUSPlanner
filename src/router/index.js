@@ -48,10 +48,5 @@ export default new VueRouter({
       name: "what_if_analysis",
       component: WhatIfAnalysisComponent
     }
-    //{
-    //  path: "@/views/wkplan_test",
-    //  name: "wkplan_test",
-    //  component: WkPlanComponent
-    //}
   ]
 });

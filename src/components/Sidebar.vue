@@ -49,11 +49,6 @@ export default {
           icon: "calendar_today",
           name: "time_table"
         },
-        //{
-        //  title: "wkplan_test",
-        //  icon: "calendar_today",
-        //  name: "wkplan_test"
-        //},
         {
           title: "Study Plan",
           icon: "assignment",
