@@ -129,6 +129,9 @@
           </td>
         </template>
       </v-data-table>
+      <v-btn v-model="fab" color="teal lighten-2" :title="msg" dark fab @click="back()">
+        <v-icon>keyboard_backspace</v-icon>
+      </v-btn>
     </div>
 
     <!-- <v-modbar v-model="mod" :timeout="3000" :color="modColor">
@@ -149,6 +152,7 @@ export default {
   },
   data () {
       return {
+        msg: "Back to Study Plan",
         mod: false,
         modColor: '',
         modText: '',
@@ -169,7 +173,7 @@ export default {
         ],
         modules: [
           {
-            semester: 1,
+            semester: 'Frozen Yogurt',
             module1: 159,
             module2: 6.0,
             module3: 24,
@@ -177,7 +181,7 @@ export default {
             module5: '1%'
           },
           {
-            semester: 2,
+            semester: 'Ice cream sandwich',
             module1: 237,
             module2: 9.0,
             module3: 37,
@@ -185,7 +189,7 @@ export default {
             module5: '1%'
           },
           {
-            semester: 3,
+            semester: 'Eclair',
             module1: 262,
             module2: 16.0,
             module3: 23,
@@ -193,7 +197,7 @@ export default {
             module5: '7%'
           },
           {
-            semester: 4,
+            semester: 'Cupcake',
             module1: 305,
             module2: 3.7,
             module3: 67,
@@ -201,7 +205,7 @@ export default {
             module5: '8%'
           },
           {
-            semester: 5,
+            semester: 'Gingerbread',
             module1: 356,
             module2: 16.0,
             module3: 49,
@@ -209,7 +213,7 @@ export default {
             module5: '16%'
           },
           {
-            semester: 6,
+            semester: 'Jelly bean',
             module1: 375,
             module2: 0.0,
             module3: 94,
@@ -217,15 +221,7 @@ export default {
             module5: '0%'
           },
           {
-            semester: 7,
-            module1: 392,
-            module2: 0.2,
-            module3: 98,
-            module4: 0,
-            module5: '2%'
-          },
-          {
-            semester: 8,
+            semester: 'Lollipop',
             module1: 392,
             module2: 0.2,
             module3: 98,
@@ -253,6 +249,9 @@ export default {
       },
       close () {
         console.log('Dialog closed')
+      },
+      back: function(){
+        router.push({name: 'four_year_plan'})
       }
     }
   }
