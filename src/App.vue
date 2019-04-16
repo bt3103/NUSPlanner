@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import PageHeader from "@/components/Header.vue";
+import PageHeader from "@/components/Header_login.vue";
 import PageFooter from "@/components/Footer.vue";
 
 export default {
