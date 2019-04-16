@@ -20,8 +20,17 @@
     </div>
     <div>
       <v-container>
+        <v-layout>
+          <v-flex xs12>
+        <v-btn block @click="runWhatIf">
+          Click To Run What-If &emsp; 
+          <v-icon>fas fa-play</v-icon>
+        </v-btn>
+        </v-flex>
+        </v-layout>
         <v-layout row wrap>
-          <v-flex xs6>
+          
+          <v-flex xs6 pa-1>
             <v-card>
               <v-card-title>Table of All Modules
                 <v-spacer></v-spacer>
@@ -50,7 +59,7 @@
               </v-data-table>
             </v-card>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs6 pa-1>
             <v-card>
               <v-card-title>Table of Selected Modules
                 <v-spacer></v-spacer>
@@ -86,7 +95,7 @@
             </v-card>
           </v-flex>
           <v-flex xs10 offset-xs1></v-flex>
-          <v-fab-transition>
+<!--           <v-fab-transition>
             <v-btn
               v-show="!hidden"
               color="pink"
@@ -98,9 +107,9 @@
               :title="runWhatIfMSG"
               @click="runWhatIf"
             >
-              <v-icon>check_circle</v-icon>
+              <v-icon>far fa-play-circle</v-icon>
             </v-btn>
-          </v-fab-transition>
+          </v-fab-transition> -->
           <v-flex v-if="showWhatIf">
             <v-alert
               :value="graduationStatisfied"
