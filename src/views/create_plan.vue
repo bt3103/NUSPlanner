@@ -1,5 +1,6 @@
 <template lang="html">
 <div id="app">
+ <div class="sidebar"><sidebar /></div>
  <div id="table-wrapper" class="ui container">
    <h2> Create Your Own Study Plan</h2>
   <vuetable ref="vuetable"
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+import sidebar from "@/components/Sidebar.vue";
 import sidebar from "@/components/Sidebar.vue";
 import VueTable, {
   VuetablePagination,

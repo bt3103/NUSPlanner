@@ -239,7 +239,7 @@
 </template>
 
 <script>
-import chart from "./function/chart.js";
+import chart from "/function/chart.js";
 import SortedTablePlugin from "vue-sorted-table";
 import Vue from "vue";
 import db from '@/firebase'
