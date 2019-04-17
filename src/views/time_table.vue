@@ -15,7 +15,7 @@
           color="primary"
           type="week"
         >
-          
+
           <template v-slot:dayBody="{ date, timeToY, minutesToPixels }">
             <template v-for="event in eventsMap[date]">
               <!-- timed events -->
@@ -24,7 +24,7 @@
                 :key="event.title"
                 :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(event.duration) + 'px' }"
                 class="my-event with-time"
-                @click="open(event)"
+                @click="open(event);locate(event)"
                 v-html="event.title"
               ></div>
             </template>
@@ -58,7 +58,7 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs12>
-            
+
             <v-select
               v-model="module"
               :menu-props="{ auto: true }"
@@ -75,7 +75,10 @@
             <v-btn color="teal lighten-2" dark @click="switchTable();">{{
             table.text
             }}</v-btn>
-            
+            <v-btn color="teal lighten-2" dark @click="removeModule(module_locate)"
+              >Remove Module</v-btn
+            >
+
           </v-flex>
         </v-layout>
       </v-container>
@@ -102,6 +105,7 @@ export default {
       today: "2019-04-16",
       newmodules: [],
       modulelist: [],
+      module_locate: "",
       module: "BT3103",
       table: {
         text: "Exam Table"
@@ -129,7 +133,11 @@ export default {
     open(event) {
       alert(event.title + "\n" + event.venue + "\n" + event.time);
     },
-    getMod(module) {
+    locate(event){
+      this.module_locate = event.title;
+      //console.log(this.module_locate);
+    },
+    getnewMod(module) {
       for (var mod in this.newmodules) {
         if (this.newmodules[mod]["title"] == module) {
           //console.log(this.newmodules[mod])
@@ -138,21 +146,42 @@ export default {
         }
       }
     },
-    removeModule: function(module) {
-      todosRef.child(todo[".key"]).remove();
+    getoldMod(module) {
+      for (var mod in this.modulelist) {
+        if (this.modulelist[mod]["title"] == module) {
+          //console.log(this.newmodules[mod])
+          //console.log(this.newmodules[mod]["exam"])
+          return this.modulelist[mod];
+        }
+      }
+    },
+    removeModule: function(module_locate) {
+      var mod = this.getoldMod(module_locate);
+      var title = mod["title"];
+      //console.log(title);
+      for (var i = 0; i < this.modulelist.length; i++) {
+        if (this.modulelist[i].title == title) {
+          //console.log(this.modulelist[i].title)
+          //console.log(this.modulelist.length);
+          alert(" You have removed module "+module_locate +" !");
+          this.modulelist.splice(i,1);
+          //console.log(this.modulelist.length);
+          break;
+        }
+      }
     },
 
     addModule: function(module) {
       //check exam first
       var flag = true;
-      var mod = this.getMod(module);
+      var mod = this.getnewMod(module);
       //console.log(mod)
       var title = mod["title"];
       var exam = mod["exam"];
       var date = mod["date"];
       var time = mod["time"];
       var key = mod[".key"];
-      console.log(key);
+      //console.log(key);
       for (var i = 0; i < this.modulelist.length; i++) {
         if (this.modulelist[i].title == title) {
           //console.log(this.modulelist[i].title)
@@ -185,10 +214,13 @@ export default {
           break;
         }
         if ((flag == true) & (i == this.modulelist.length - 1)) {
-          console.log(this.modulelist.length);
-          console.log(mod);
+          //console.log(this.modulelist.length);
+          //console.log(mod);
           this.modulelist.push(mod);
-          console.log(this.modulelist.length);
+          alert(
+            module + " has been successfully added !"
+          );
+          //console.log(this.modulelist.length);
           break;
         }
       }
