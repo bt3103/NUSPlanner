@@ -335,7 +335,7 @@ export default {
           if(this.val[n]=='NA'){
               count1++;
           }
-          if(count1 >1){
+          if(count1 >=1){
             this.fail=true;
             }
           }
@@ -346,7 +346,7 @@ export default {
           for(i = 0; i < 8; i++){
             for(m = 0; i < 5; i++){
               if(this.modules[i][m]=='NA'){
-              count++;
+                count++;
               }
             }
             if(count >8){
