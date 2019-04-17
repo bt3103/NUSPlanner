@@ -177,7 +177,7 @@
         <v-alert
               :value="!fail"
               color="green"
-            >Module Requirement is met! However, for more robust rule checking, please refer to our What-If Analysis.</v-alert>
+            >Module Requirement of 160MC is met! However, for more robust rule checking, please refer to our What-If Analysis.</v-alert>
             <v-alert
               :value="fail"
               color="orange"

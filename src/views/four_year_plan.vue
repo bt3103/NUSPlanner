@@ -106,6 +106,7 @@ export default {
         "Year 3 Sem 2"
       ],
       sep: [
+        "Year 2 Sem 2",
         "Year 3 Sem 1",
         "Year 3 Sem 2",
         "Not Going"
