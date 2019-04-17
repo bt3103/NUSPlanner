@@ -73,12 +73,13 @@
             auto-draw
           ></v-sparkline>
           -->
-          <chart
+          <!--           <chart
             :data="bySemCAP[1]"
             :label="bySemCAP[0]"
             :background="someRandomColor[2]"
             :options="{ responsive: true, maintainAspectRatio: false }"
-          ></chart>
+          ></chart>-->
+          <line-chart :data="bySemCAP"></line-chart>
         </v-sheet>
         <v-divider class="my-2"></v-divider>
         <v-icon class="mr-2" small>mdi-clock</v-icon>
@@ -282,7 +283,12 @@ export default {
         }
       }
       console.log(res3);
-      return res3;
+      var res4 = [];
+      for (var i in res3[0]) {
+        res4.push([res3[0][i], res3[1][i]]);
+      }
+      return res4;
+      console.log(res4);
     },
     randomColor() {
       var randomColor = Math.floor(Math.random() * 16777215).toString(16);
