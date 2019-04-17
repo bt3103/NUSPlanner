@@ -22,7 +22,7 @@ export default {
 .sidebar {
   background-color: #ffffff;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  width: 20%;
+  width: 15%;
   float: left;
 }
 </style>
