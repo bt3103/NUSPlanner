@@ -55,10 +55,10 @@
       </v-container>
     </div>
     <div class="studyplan_blank" v-show="submitted==0">
-    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=f3c61f92-d6bf-41ec-b6e3-86c142ecc69d" width="800px" height="500px" />
+    <img src="https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_blank.PNG?alt=media&token=f3c61f92-d6bf-41ec-b6e3-86c142ecc69d" width="750px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==1">
-    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec.PNG?alt=media&token=bb6d0e62-c03c-4fed-aca7-08fa12f739da' width="750px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec.PNG?alt=media&token=2d2dac88-463a-4af8-8b8f-33b806f50bbb' width="750px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==2">
     <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_in4.PNG?alt=media&token=192d9567-33cf-449d-b71d-775ef354c278' width="750px" height="500px" />
