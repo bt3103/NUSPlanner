@@ -346,9 +346,6 @@ export default {
         this.moduleTableSortOrder = "asc";
       }
     }
-  },
-  components: {
-    chart
   }
 };
 </script>
