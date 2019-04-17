@@ -69,7 +69,7 @@
               attach="dropdown"
             >
             </v-select>
-            <v-btn block color="teal lighten-2" dark @click="addModule(module)"
+            <v-btn color="teal lighten-2" dark @click="addModule(module)"
               >Add Module</v-btn
             >
             <v-btn color="teal lighten-2" dark @click="switchTable();">{{
