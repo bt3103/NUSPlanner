@@ -109,7 +109,7 @@ export default {
         "Year 2 Sem 2",
         "Year 3 Sem 1",
         "Year 3 Sem 2",
-        "Not Going"
+        "No Plan"
       ],
       minors: [
         "Economics",
@@ -135,9 +135,9 @@ export default {
       } else if(this.e1=="Year 2 Sem 2" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" ){
         this.submitted = 2;
       }else if(this.e1=="Year 2 Sem 2" && this.e2 == "No Plan" && this.e3 =="Economics" ){
-        this.submitted =3;
-      }else if(this.e1=="Year 3 Sem 2" && this.e2 == "Year 2 Sem 2" && this.e3 =="Statistics" ){
         this.submitted =4;
+      }else if(this.e1=="Year 3 Sem 2" && this.e2 == "Year 2 Sem 2" && this.e3 =="Statistics" ){
+        this.submitted =3;
       }
       else{
         alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan. We will update soon");
