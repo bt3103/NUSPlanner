@@ -10,7 +10,9 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js",
+    "homepage": "https://github.com/bt3103/NUSPlanner"
   },
   "dependencies": {
     "chart.js": "^2.8.0",
@@ -22,7 +24,7 @@
     "vue": "^2.5.2",
     "vue-chartist": "2.2.0",
     "vue-chartjs": "3.4.0",
-    "vue-chartkick": "0.5.0",
+    "vue-chartkick": "^0.5.0",
     "vue-router": "3.0.2",
     "vue-schedule": "2.0.4",
     "vue-sorted-table": "1.0.1",
@@ -76,6 +78,7 @@
     "stylus-loader": "^3.0.1 ",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-gh-pages": "^1.19.0",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
