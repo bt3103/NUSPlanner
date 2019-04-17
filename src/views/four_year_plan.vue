@@ -18,7 +18,7 @@
               :menu-props="{ auto: true }"
               :items="sep"
               label="Time for SEP"
-              placeholder="Year 3 Sem 1"
+              placeholder="Year 3 Sem 2"
               attach="dropdown"
             ></v-select>
             <v-select
