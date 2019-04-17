@@ -67,7 +67,7 @@
     <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_nosep.PNG?alt=media&token=7acd4352-df56-4642-a88d-e20b9ac527fe' width="750px" height="500px" />
     </div>
     <div class="studyplan" v-show="submitted==4">
-    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_ec_nosep.PNG?alt=media&token=7acd4352-df56-4642-a88d-e20b9ac527fe' width="750px" height="500px" />
+    <img src='https://firebasestorage.googleapis.com/v0/b/nusplanner.appspot.com/o/studyplans%2Fstudyplan_sep5_st.PNG?alt=media&token=073b0f3a-5d7a-4fc1-ab33-7e3a4a76da71' width="750px" height="500px" />
     </div>
     <div class='para'>
       <p>
@@ -135,9 +135,9 @@ export default {
       } else if(this.e1=="Year 2 Sem 2" && this.e2 == "Year 3 Sem 2" && this.e3 =="Economics" ){
         this.submitted = 2;
       }else if(this.e1=="Year 2 Sem 2" && this.e2 == "No Plan" && this.e3 =="Economics" ){
-        this.submitted =4;
-      }else if(this.e1=="Year 3 Sem 2" && this.e2 == "Year 2 Sem 2" && this.e3 =="Statistics" ){
         this.submitted =3;
+      }else if(this.e1=="Year 3 Sem 2" && this.e2 == "Year 2 Sem 2" && this.e3 =="Statistics" ){
+        this.submitted =4;
       }
       else{
         alert("We are sorry, there is no study plan for this combination. Please reselect or create your own plan. We will update soon");
