@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ 'padding-left': '230px', width: '95%' }" >
+  <div :style="{ 'padding-left': '250px', width: '99%' }" >
     <div class="text-xs-center">
       <v-container fluid >
         <v-btn block @click='clickProgress'>Current Progress ({{progressMessage}})</v-btn>
@@ -24,7 +24,7 @@
         <v-layout>
           <v-flex xs12>
         <v-btn block @click="runWhatIf">
-          Click To Run What-If &emsp; 
+          Click To Run What-If
         </v-btn>
         </v-flex>
         </v-layout>
