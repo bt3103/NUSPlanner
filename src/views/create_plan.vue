@@ -312,6 +312,9 @@ export default {
       },
       check: function(){
         this.fail=false;
+        if(this.modText=="NA"){
+          this.fail=true;
+        }
         if(this.modules.length==8){
           var i;
           var m;

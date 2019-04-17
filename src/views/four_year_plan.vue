@@ -26,7 +26,7 @@
               :menu-props="{ auto: true }"
               :items="minors"
               label="Minor to take"
-              placeholder="Finance"
+              placeholder="No Plan"
               attach="dropdown"
             ></v-select>
             <v-select
