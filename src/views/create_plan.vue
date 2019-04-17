@@ -20,10 +20,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.semster"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="2"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -40,10 +42,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.module1"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -60,10 +64,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.module2"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -80,10 +86,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.module3"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -100,10 +108,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.module4"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -120,10 +130,12 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.module5"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
+                  :rules="[narule]"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -140,10 +152,11 @@
               <template v-slot:input>
                 <v-text-field
                   v-model="props.item.overloadmods"
-                  :rules="[max25chars]"
+                  @input="onEditValueChanged"
                   label="Edit"
                   single-line
                   counter
+                  maxlength="8"
                 ></v-text-field>
               </template>
             </v-edit-dialog>
@@ -195,9 +208,10 @@ export default {
         fail:false,
         show:false,
         mod: false,
+        val:[],
         modColor: '',
         modText: '',
-        max25chars: v => v.length <= 25 || 'Input too long!',
+        narule: v => v != "NA"|| 'Cannot input NA!',
         pagination: {},
         headers: [
           {
@@ -220,7 +234,7 @@ export default {
             module3: 'EC2101',
             module4: 'GEH1001',
             module5: 'BT2101',
-            overloadmods: 'GES1002'
+            overloadmods: 'NA'
           },
           {
             semester: 2,
@@ -282,13 +296,16 @@ export default {
             module2: 'BT4101',
             module3: 'BT4101',
             module4: 'BT4101',
-            module5: 'NA',
+            module5: 'GES1002',
             overloadmods: 'NA'
           }
         ]
       }
     },
     methods: {
+      onEditValueChanged(value){
+        this.val.push(value);
+      },
       save () {
         this.mod = true
         this.modColor = 'success'
@@ -312,9 +329,16 @@ export default {
       },
       check: function(){
         this.fail=false;
-        if(this.modText=="NA"){
-          this.fail=true;
-        }
+        var n;
+        var count1=0;
+        for(n = 0; n < this.val.length; n++){
+          if(this.val[n]=='NA'){
+              count1++;
+          }
+          if(count1 >1){
+            this.fail=true;
+            }
+          }
         if(this.modules.length==8){
           var i;
           var m;
