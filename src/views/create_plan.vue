@@ -177,7 +177,7 @@
         <v-alert
               :value="!fail"
               color="green"
-            >Congratulations! All requirements have been met.</v-alert>
+            >Module Requirement is met! However, for more robust rule checking, please refer to our What-If Analysis.</v-alert>
             <v-alert
               :value="fail"
               color="orange"
